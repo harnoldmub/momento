@@ -2,13 +2,9 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
 
 export function BookingForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string>("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,58 +33,75 @@ export function BookingForm() {
     }
   }
 
+  const inputClass =
+    "w-full border-b border-line bg-transparent py-3 text-sm text-ivory outline-none transition-colors placeholder:text-ivory/30 focus:border-ivory/40";
+
   return (
-    <form onSubmit={onSubmit} className="grid gap-5">
-      <div className="grid gap-5 md:grid-cols-2">
-        <Input name="name" label="Name" placeholder="Your name" required />
-        <Input name="email" label="Email" placeholder="you@email.com" />
+    <form onSubmit={onSubmit} className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Nom</label>
+          <input name="name" placeholder="Votre nom" required className={inputClass} />
+        </div>
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Email</label>
+          <input name="email" type="email" placeholder="votre@email.com" className={inputClass} />
+        </div>
       </div>
-      <div className="grid gap-5 md:grid-cols-2">
-        <Input
-          name="whatsapp"
-          label="WhatsApp"
-          placeholder="+243..."
-          hint="If you prefer WhatsApp, include your number."
-        />
-        <Input name="eventDate" label="Date" type="date" />
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">T&eacute;l&eacute;phone / WhatsApp</label>
+          <input name="whatsapp" placeholder="+243..." className={inputClass} />
+        </div>
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Date du mariage</label>
+          <input name="eventDate" type="date" className={inputClass} />
+        </div>
       </div>
-      <div className="grid gap-5 md:grid-cols-2">
-        <Input name="location" label="Location" placeholder="City, Country" />
-        <label className="grid gap-2 text-sm">
-          <span className="text-ivory/80">Type</span>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Lieu</label>
+          <input name="location" placeholder="Ville, Pays" className={inputClass} />
+        </div>
+        <div>
+          <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Type</label>
           <select
             name="inquiryType"
-            className="h-12 w-full rounded-xl border border-line bg-black/[0.03] px-4 text-ivory outline-none transition focus:border-ivory/35 focus:bg-black/[0.05] dark:bg-white/5 dark:focus:bg-white/7"
+            className={`${inputClass} cursor-pointer`}
             defaultValue="WEDDING"
           >
-            <option value="WEDDING">Wedding</option>
-            <option value="ENGAGEMENT">Engagement</option>
-            <option value="COUPLE">Couple</option>
-            <option value="EVENT">Event</option>
+            <option value="WEDDING">Mariage</option>
+            <option value="ENGAGEMENT">Fian&ccedil;ailles</option>
+            <option value="COUPLE">S&eacute;ance couple</option>
+            <option value="EVENT">&Eacute;v&eacute;nement</option>
             <option value="FILM">Film</option>
-            <option value="OTHER">Other</option>
+            <option value="OTHER">Autre</option>
           </select>
-        </label>
+        </div>
       </div>
-      <Textarea
-        name="message"
-        label="Message"
-        placeholder="Tell us about your story..."
-        required
-      />
+      <div>
+        <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Message</label>
+        <textarea
+          name="message"
+          placeholder="Parlez-nous de votre histoire..."
+          required
+          rows={4}
+          className={`${inputClass} resize-none`}
+        />
+      </div>
 
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between pt-4">
         <Button type="submit" disabled={status === "sending"}>
-          {status === "sending" ? "Sending..." : "Send inquiry"}
+          {status === "sending" ? "Envoi en cours..." : "Envoyer"}
         </Button>
-        {status === "sent" ? (
-          <div className="text-sm text-ivory/70">
-            Thank you. We will reply shortly.
+        {status === "sent" && (
+          <div className="text-sm text-ivory/50">
+            Merci. Nous vous r&eacute;pondrons rapidement.
           </div>
-        ) : null}
-        {status === "error" ? (
-          <div className="text-sm text-red-300">{error}</div>
-        ) : null}
+        )}
+        {status === "error" && (
+          <div className="text-sm text-red-400/80">{error}</div>
+        )}
       </div>
     </form>
   );

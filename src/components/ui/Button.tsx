@@ -21,13 +21,13 @@ export function Button({
   onClick,
 }: Props) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm tracking-[0.14em] uppercase transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal disabled:opacity-50 disabled:pointer-events-none";
+    "inline-flex items-center justify-center gap-2 px-7 py-3 text-[11px] tracking-[0.25em] uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 disabled:opacity-50 disabled:pointer-events-none";
   const styles =
     variant === "primary"
-      ? "bg-[color:var(--text)] text-[color:var(--bg2)] hover:opacity-90"
+      ? "bg-ivory text-charcoal hover:opacity-85"
       : variant === "outline"
-        ? "border border-line text-ivory hover:border-ivory/40 hover:bg-black/[0.03] dark:hover:bg-white/5"
-        : "text-ivory/80 hover:text-ivory";
+        ? "border border-line text-ivory/70 hover:border-ivory/40 hover:text-ivory"
+        : "text-ivory/60 hover:text-ivory";
 
   if (href) {
     return (

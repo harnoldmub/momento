@@ -6,6 +6,7 @@ const nextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" }
     ]
   },
+  allowedDevOrigins: ["*"],
   async headers() {
     return [
       {

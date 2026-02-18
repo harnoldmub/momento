@@ -5,9 +5,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-dvh bg-charcoal">
       <Header />
-      <main className="pt-28">{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );
 }
-

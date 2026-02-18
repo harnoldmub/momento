@@ -4,6 +4,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { CATEGORY_LABEL } from "@/components/portfolio/category";
 import { ProjectGallery } from "@/components/portfolio/ProjectGallery";
+import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 
 export async function generateMetadata({
@@ -16,7 +17,7 @@ export async function generateMetadata({
   if (!project) return { title: "Project" };
   return {
     title: project.title,
-    description: project.description || `Project by Momento RDC. ${project.location}`,
+    description: project.description || `Project by Momento. ${project.location}`,
     openGraph: {
       title: project.title,
       images: [{ url: project.coverUrl }],
@@ -30,7 +31,6 @@ export default async function ProjectPage({
   params: { slug: string };
 }) {
   const { slug } = params;
-  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
   const project = await prisma.project.findUnique({
     where: { slug },
     include: { media: { orderBy: { order: "asc" } } },
@@ -39,69 +39,61 @@ export default async function ProjectPage({
 
   return (
     <div>
-      <section className="relative overflow-hidden border-b border-line">
-        <div className="absolute inset-0">
-          <Image
-            src={project.coverUrl}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/55" />
-          <div className="absolute inset-0 bg-[radial-gradient(1000px_500px_at_60%_25%,rgba(15,76,92,0.22),transparent_60%)]" />
-        </div>
+      <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
+        <Image
+          src={project.coverUrl}
+          alt={project.title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40" />
 
-        <div className="relative w-full px-5 md:px-8 lg:px-12 pb-14 pt-16 md:pb-18">
-          <div className="max-w-3xl">
-            <div className="text-xs tracking-[0.28em] uppercase text-ivory/65">
+        <div className="relative flex h-full items-end pb-16 px-6 md:px-10 lg:px-16">
+          <div className="mx-auto max-w-[1400px] w-full">
+            <div className="text-[11px] tracking-[0.35em] uppercase text-white/50 mb-3">
               {CATEGORY_LABEL[project.category]}
-              {project.location ? ` · ${project.location}` : ""}
-              {project.date ? ` · ${project.date.toISOString().slice(0, 10)}` : ""}
+              {project.location ? ` \u00b7 ${project.location}` : ""}
+              {project.date ? ` \u00b7 ${project.date.toISOString().slice(0, 10)}` : ""}
             </div>
-            <h1 className="mt-4 font-[var(--font-display)] text-4xl tracking-[0.08em] uppercase md:text-6xl">
+            <h1 className="font-[var(--font-display)] text-4xl md:text-5xl lg:text-6xl tracking-[0.04em] uppercase text-white">
               {project.title}
             </h1>
-            {project.description ? (
-              <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ivory/70 md:text-base">
+            {project.description && (
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/55">
                 {project.description}
               </p>
-            ) : null}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button href="/contact">Book your date</Button>
-              <Button href="/portfolio" variant="outline">
-                Back to portfolio
-              </Button>
-            </div>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="w-full px-5 md:px-8 lg:px-12 py-16">
-        <ProjectGallery media={project.media} />
+      <section className="py-16 md:py-24">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16">
+          <ProjectGallery media={project.media} />
+        </div>
       </section>
 
-      <section className="border-t border-line bg-charcoal-2">
-        <div className="w-full px-5 md:px-8 lg:px-12 py-16">
-          <div className="grid gap-8 rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-10 md:grid-cols-2 md:p-14">
-            <div>
-              <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
-                Booking
+      <section className="border-t border-line py-20">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16">
+          <Reveal>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <h2 className="font-[var(--font-display)] text-2xl md:text-3xl tracking-[0.06em] uppercase">
+                  Votre histoire pourrait &ecirc;tre la prochaine
+                </h2>
+                <p className="mt-3 text-sm text-ivory/50">
+                  Partagez votre date, lieu et vision. Nous r&eacute;pondons avec disponibilit&eacute; et proposition.
+                </p>
               </div>
-              <h2 className="mt-3 font-[var(--font-display)] text-3xl tracking-[0.08em] uppercase">
-                {content?.nowBookingText || "Now booking 2026–2027"}
-              </h2>
-              <p className="mt-5 text-sm leading-relaxed text-ivory/65">
-                Share your date, location, and type of coverage. We respond with
-                availability and a curated proposal.
-              </p>
+              <div className="flex gap-4">
+                <Button href="/contact">Parlons de votre mariage</Button>
+                <Button href="/portfolio" variant="outline">
+                  Retour au portfolio
+                </Button>
+              </div>
             </div>
-            <div className="flex items-center md:justify-end">
-              <Button href="/contact" className="w-full md:w-auto">
-                Book your date
-              </Button>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </div>

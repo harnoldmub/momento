@@ -1,73 +1,78 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/db";
-import { Reveal } from "@/components/motion/Reveal";
-import { PortfolioClient } from "@/components/portfolio/PortfolioClient";
-import Image from "next/image";
+import { FullscreenGallery } from "@/components/portfolio/FullscreenGallery";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Nos R\u00e9alisations \u2013 Des Histoires d\u2019Amour \u00e0 Travers le Monde. Photographie et film de mariage international.",
+  description: "Nos R\u00e9alisations \u2013 Des Histoires d\u2019Amour \u00e0 Travers le Monde.",
 };
 
-export default async function PortfolioPage() {
-  const projects = await prisma.project.findMany({
-    orderBy: [{ updatedAt: "desc" }],
-    include: { media: { orderBy: { order: "asc" } } },
-  });
+const allPhotos = [
+  "/portfolio/lyse---anthony-1-6.jpg",
+  "/portfolio/arianne---theo-1.jpg",
+  "/portfolio/morgane---ronald-by-momento-1.jpg",
+  "/portfolio/lyse---anthony-2.jpg",
+  "/portfolio/arianne---theo-2-suit.jpg",
+  "/portfolio/morgane---ronald-by-momento-2.jpg",
+  "/portfolio/divana-6.jpg",
+  "/portfolio/lyse-1_.jpg",
+  "/portfolio/yoceane-dubai-1.jpg",
+  "/portfolio/lyse---anthony-3.jpg",
+  "/portfolio/arianne---theo-3.jpg",
+  "/portfolio/morgane---ronald-by-momento-3.jpg",
+  "/portfolio/angie-bali-2.jpg",
+  "/portfolio/josiane---pacifique-1.jpg",
+  "/portfolio/lyse---anthony-4.jpg",
+  "/portfolio/divana-3-suite.jpg",
+  "/portfolio/lhysa-1.jpg",
+  "/portfolio/morgane---ronald-by-momento-4.jpg",
+  "/portfolio/lyse---anthony-5.jpg",
+  "/portfolio/divina-2.jpg",
+  "/portfolio/photoshop-yoceane-7.jpg",
+  "/portfolio/lyse---anthony-6.jpg",
+  "/portfolio/angie-3-modifier-insta.jpg",
+  "/portfolio/morgane---ronald-by-momento-7.jpg",
+  "/portfolio/lyse---anthony-7.jpg",
+  "/portfolio/photoshop-yoceane-8.jpg",
+  "/portfolio/photoshop-anaia-5.jpg",
+  "/portfolio/lyse---anthony-8.jpg",
+  "/portfolio/photoshop-yoceane-9.jpg",
+  "/portfolio/marilyn.jpg",
+  "/portfolio/lyse-10.jpg",
+  "/portfolio/photoshop-yoceane-11.jpg",
+  "/portfolio/mmt_7409.jpg",
+  "/portfolio/lyse-3_.jpg",
+  "/portfolio/photoshop-yoceane-12.jpg",
+  "/portfolio/lyse-4_.jpg",
+  "/portfolio/photoshop-1.jpg",
+  "/portfolio/img_3850.jpg",
+  "/portfolio/img_3851.jpg",
+  "/portfolio/img_3852.jpg",
+  "/portfolio/img_3853.jpg",
+  "/portfolio/img_4924.jpg",
+  "/portfolio/img_6008.jpg",
+  "/portfolio/img_6009.jpg",
+  "/portfolio/img_6015.jpg",
+  "/portfolio/img_6016.jpg",
+  "/portfolio/img_6018.jpg",
+  "/portfolio/img_6468.jpg",
+  "/portfolio/img_6469.jpg",
+  "/portfolio/img_6470.jpg",
+  "/portfolio/img_8605.jpg",
+  "/portfolio/_02a9253.jpg",
+  "/portfolio/_02a9315.jpg",
+  "/portfolio/_mg_0611-modifier.jpg",
+  "/portfolio/_mg_7911-modifier.jpg",
+  "/portfolio/_mt_0596.jpg",
+  "/portfolio/_mt_3680.jpg",
+  "/portfolio/_mt_3697.jpg",
+  "/portfolio/_n8a4624-modifier-2.jpg",
+  "/portfolio/_n8a8869-modifier.jpg",
+];
 
+export default function PortfolioPage() {
   return (
-    <div>
-      <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-        <Image
-          src="/portfolio/lyse---anthony-5.jpg"
-          alt="Portfolio Momento"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="relative flex h-full items-end pb-16 px-6 md:px-10 lg:px-16">
-          <div className="mx-auto max-w-[1400px] w-full">
-            <div className="text-[11px] tracking-[0.35em] uppercase text-white/50 mb-4">
-              Portfolio
-            </div>
-            <h1 className="font-[var(--font-display)] text-4xl md:text-5xl lg:text-6xl tracking-[0.04em] uppercase text-white max-w-3xl">
-              Nos R&eacute;alisations
-            </h1>
-            <p className="mt-4 text-sm text-white/55 max-w-xl leading-relaxed">
-              Chaque image raconte une promesse. Chaque film capture une &eacute;motion.
-              Bienvenue dans notre portfolio de photographie et film de mariage international.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16">
-          <Reveal>
-            <div className="grid gap-6 md:grid-cols-4 mb-16 text-center md:text-left">
-              <div className="border border-line p-6">
-                <div className="text-xs tracking-[0.2em] uppercase text-ivory/35 mb-2">Signature</div>
-                <p className="text-sm text-ivory/60">Couleurs naturelles et raffin&eacute;es</p>
-              </div>
-              <div className="border border-line p-6">
-                <div className="text-xs tracking-[0.2em] uppercase text-ivory/35 mb-2">Narration</div>
-                <p className="text-sm text-ivory/60">Fluide et immersive</p>
-              </div>
-              <div className="border border-line p-6">
-                <div className="text-xs tracking-[0.2em] uppercase text-ivory/35 mb-2">Approche</div>
-                <p className="text-sm text-ivory/60">Cin&eacute;matographique</p>
-              </div>
-              <div className="border border-line p-6">
-                <div className="text-xs tracking-[0.2em] uppercase text-ivory/35 mb-2">D&eacute;tails</div>
-                <p className="text-sm text-ivory/60">Attention obsessionnelle</p>
-              </div>
-            </div>
-          </Reveal>
-
-          <PortfolioClient projects={projects} />
-        </div>
-      </section>
+    <div className="pt-20">
+      <FullscreenGallery photos={allPhotos} />
     </div>
   );
 }

@@ -25,12 +25,12 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6 md:px-10 lg:px-16">
-          <Link
-            href="/"
-            className="text-xl tracking-[0.22em] uppercase text-white drop-shadow-sm"
-            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
-          >
-            Momento
+          <Link href="/" className="block shrink-0" style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.7))" }}>
+            <img
+              src="/logo/logo-blanc.png"
+              alt="Momento"
+              className="h-10 md:h-12 w-auto"
+            />
           </Link>
 
           <nav className="hidden items-center gap-10 text-[11px] tracking-[0.3em] uppercase md:flex"

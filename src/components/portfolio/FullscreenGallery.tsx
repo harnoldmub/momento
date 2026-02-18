@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { motion } from "framer-motion";
 
 export function FullscreenGallery({ photos }: { photos: string[] }) {
   const [open, setOpen] = useState(false);
@@ -16,12 +15,8 @@ export function FullscreenGallery({ photos }: { photos: string[] }) {
     <>
       <div className="grid grid-cols-2 md:grid-cols-3">
         {photos.map((src, i) => (
-          <motion.div
+          <div
             key={src}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-5%" }}
-            transition={{ duration: 0.6, delay: (i % 6) * 0.05 }}
             className="relative aspect-[4/5] overflow-hidden cursor-pointer group"
             onClick={() => {
               setIndex(i);
@@ -37,7 +32,7 @@ export function FullscreenGallery({ photos }: { photos: string[] }) {
               priority={i < 6}
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
-          </motion.div>
+          </div>
         ))}
       </div>
 

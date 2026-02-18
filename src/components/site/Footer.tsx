@@ -12,9 +12,11 @@ export async function Footer() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16 py-20">
         <div className="grid gap-16 md:grid-cols-3">
           <div>
-            <div className="font-[var(--font-display)] text-2xl tracking-[0.14em] uppercase">
-              Momento
-            </div>
+            <img
+              src="/logo/logo-noir.png"
+              alt="Momento"
+              className="h-10 w-auto mb-2 brightness-[1.8]"
+            />
             <p className="mt-4 text-sm leading-relaxed text-ivory/50 max-w-xs">
               Photographe & vid&eacute;aste de mariage international. Films
               cin&eacute;matographiques & photographie haut de gamme.

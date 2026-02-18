@@ -20,26 +20,29 @@ export function Header() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
           scrolled
-            ? "bg-charcoal/90 backdrop-blur-md border-b border-line"
-            : "bg-transparent"
+            ? "bg-charcoal/95 backdrop-blur-md border-b border-line shadow-lg"
+            : "bg-gradient-to-b from-black/70 via-black/30 to-transparent"
         )}
       >
         <div className="mx-auto flex h-20 max-w-[1400px] items-center justify-between px-6 md:px-10 lg:px-16">
           <Link
             href="/"
-            className="font-[var(--font-display)] text-xl tracking-[0.18em] uppercase text-ivory"
+            className="text-xl tracking-[0.22em] uppercase text-white drop-shadow-sm"
+            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
           >
             Momento
           </Link>
 
-          <nav className="hidden items-center gap-10 text-[11px] tracking-[0.3em] uppercase md:flex">
-            <Link className="text-ivory/70 hover:text-ivory transition-colors duration-300" href="/portfolio">
+          <nav className="hidden items-center gap-10 text-[11px] tracking-[0.3em] uppercase md:flex"
+            style={{ fontFamily: "var(--font-worksans), 'Work Sans', sans-serif", fontWeight: 300 }}
+          >
+            <Link className="text-white/80 hover:text-white transition-colors duration-300 drop-shadow-sm" href="/portfolio">
               Portfolio
             </Link>
-            <Link className="text-ivory/70 hover:text-ivory transition-colors duration-300" href="/about">
+            <Link className="text-white/80 hover:text-white transition-colors duration-300 drop-shadow-sm" href="/about">
               About
             </Link>
-            <Link className="text-ivory/70 hover:text-ivory transition-colors duration-300" href="/contact">
+            <Link className="text-white/80 hover:text-white transition-colors duration-300 drop-shadow-sm" href="/contact">
               Contact
             </Link>
           </nav>
@@ -47,7 +50,7 @@ export function Header() {
           <div className="hidden md:block">
             <Link
               href="/contact"
-              className="border border-ivory/30 px-6 py-2.5 text-[11px] tracking-[0.25em] uppercase text-ivory transition-all duration-300 hover:bg-ivory hover:text-charcoal"
+              className="border border-white/40 px-6 py-2.5 text-[11px] tracking-[0.25em] uppercase text-white transition-all duration-300 hover:bg-white hover:text-charcoal drop-shadow-sm"
             >
               Booking
             </Link>
@@ -58,9 +61,9 @@ export function Header() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
-            <span className={cn("block h-[1.5px] w-6 bg-ivory transition-all duration-300", menuOpen && "rotate-45 translate-y-[4.5px]")} />
-            <span className={cn("block h-[1.5px] w-6 bg-ivory transition-all duration-300", menuOpen && "opacity-0")} />
-            <span className={cn("block h-[1.5px] w-6 bg-ivory transition-all duration-300", menuOpen && "-rotate-45 -translate-y-[4.5px]")} />
+            <span className={cn("block h-[1.5px] w-6 bg-white transition-all duration-300", menuOpen && "rotate-45 translate-y-[4.5px]")} />
+            <span className={cn("block h-[1.5px] w-6 bg-white transition-all duration-300", menuOpen && "opacity-0")} />
+            <span className={cn("block h-[1.5px] w-6 bg-white transition-all duration-300", menuOpen && "-rotate-45 -translate-y-[4.5px]")} />
           </button>
         </div>
       </header>
@@ -70,21 +73,24 @@ export function Header() {
           <Link
             href="/portfolio"
             onClick={() => setMenuOpen(false)}
-            className="font-[var(--font-display)] text-3xl tracking-[0.12em] uppercase text-ivory"
+            className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
+            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
           >
             Portfolio
           </Link>
           <Link
             href="/about"
             onClick={() => setMenuOpen(false)}
-            className="font-[var(--font-display)] text-3xl tracking-[0.12em] uppercase text-ivory"
+            className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
+            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
           >
             About
           </Link>
           <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="font-[var(--font-display)] text-3xl tracking-[0.12em] uppercase text-ivory"
+            className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
+            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
           >
             Contact
           </Link>

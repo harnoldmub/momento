@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
+import { Manrope, Playfair_Display, Work_Sans, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
@@ -13,6 +13,20 @@ const fontDisplay = Playfair_Display({
   variable: "--font-momento-display",
   subsets: ["latin"],
   display: "swap",
+});
+
+const fontDidot = Bodoni_Moda({
+  variable: "--font-didot",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+const fontWorkSans = Work_Sans({
+  variable: "--font-worksans",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400"],
 });
 
 export const metadata: Metadata = {
@@ -42,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="bg-charcoal text-ivory antialiased" suppressHydrationWarning>
-      <body className={`${fontBody.variable} ${fontDisplay.variable} min-h-dvh`}>
+      <body className={`${fontBody.variable} ${fontDisplay.variable} ${fontDidot.variable} ${fontWorkSans.variable} min-h-dvh`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

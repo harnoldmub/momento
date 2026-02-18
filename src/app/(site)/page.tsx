@@ -17,12 +17,12 @@ export default async function HomePage() {
   return (
     <div>
       <CinematicHero
-        title="Photographe & Vid\u00e9aste de Mariage"
-        subtitle="Il y a des instants qui ne se r\u00e9p\u00e8tent jamais. Un regard avant l\u2019autel. Une main qui tremble l\u00e9g\u00e8rement. Un sourire qui dit \u00ab\u00a0pour toujours\u00a0\u00bb."
-        ctaText="D\u00e9couvrir notre univers"
+        title="Momento"
+        subtitle="Photographe & vidéaste de mariage. Des instants qui ne se répètent jamais, capturés avec art et émotion."
+        ctaText="Découvrir notre univers"
         ctaHref="/portfolio"
-        nowBookingText={content?.nowBookingText || "Now booking 2026\u20132027"}
-        videoUrl={content?.heroVideoUrl || ""}
+        nowBookingText={content?.nowBookingText || "Now booking 2026–2027"}
+        videoUrl={content?.heroVideoUrl || null}
         imageUrl="/portfolio/lyse---anthony-1-6.jpg"
       />
 

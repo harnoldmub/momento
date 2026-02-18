@@ -22,7 +22,7 @@ export function GalleryPreview() {
           style={{ y, scale }}
         >
           <img
-            src="/porfolio/Lyse & Anthony 3.jpg"
+            src="/porfolio/Lyse%20%26%20Anthony%203.jpg"
             alt="Galerie mariage"
             className="w-full h-full object-cover"
             style={{ minHeight: "120%" }}

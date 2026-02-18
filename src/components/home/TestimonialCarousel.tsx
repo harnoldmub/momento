@@ -35,7 +35,8 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
       <div className="relative h-[70vh] md:h-[80vh]">
         <div
           className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
-          style={{ backgroundImage: `url(/portfolio/img_6008.jpg)` }}
+          style={{ backgroundImage: `url(/porfolio/IMG_6008.jpg)` }}
+
         />
         <div className="absolute inset-0 bg-black/60" />
 

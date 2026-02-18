@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 export function LoveShine() {
@@ -43,13 +42,10 @@ export function LoveShine() {
           className="mt-14 flex justify-center"
         >
           <div className="w-full max-w-md">
-            <Image
-              src="/portfolio/divana-6.jpg"
-              alt="Portrait \u00e9l\u00e9gant"
-              width={600}
-              height={800}
+            <img
+              src="/porfolio/Divana%206.jpg"
+              alt="Portrait élégant"
               className="w-full object-cover"
-              sizes="(max-width: 768px) 100vw, 400px"
             />
           </div>
         </motion.div>

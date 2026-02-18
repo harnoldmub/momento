@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 export function ReadySection() {
@@ -17,11 +16,9 @@ export function ReadySection() {
             className="flex justify-center"
           >
             <div className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden">
-              <Image
-                src="/portfolio/lyse---anthony-1-6.jpg"
+              <img
+                src="/porfolio/Lyse%20%26%20Anthony%201-6.jpg"
                 alt="Momento"
-                width={400}
-                height={400}
                 className="w-full h-full object-cover"
               />
             </div>

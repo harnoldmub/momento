@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { Reveal } from "@/components/motion/Reveal";
 import { BookingForm } from "@/components/contact/BookingForm";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Contact / Booking",
@@ -18,12 +17,10 @@ export default async function ContactPage() {
   return (
     <div>
       <section className="relative h-[45vh] md:h-[55vh] overflow-hidden">
-        <Image
-          src="/portfolio/morgane---ronald-by-momento-7.jpg"
+        <img
+          src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%207.jpg"
           alt="Contact Momento"
-          fill
-          className="object-cover"
-          priority
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative flex h-full items-end pb-16 px-6 md:px-10 lg:px-16">

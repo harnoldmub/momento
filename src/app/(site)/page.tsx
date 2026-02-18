@@ -23,7 +23,7 @@ export default async function HomePage() {
         ctaHref="/portfolio"
         nowBookingText={content?.nowBookingText || "Now booking 2026–2027"}
         videoUrl={content?.heroVideoUrl || null}
-        imageUrl="/porfolio/Lyse & Anthony 1-6.jpg"
+        imageUrl="/porfolio/Lyse%20%26%20Anthony%201-6.jpg"
       />
 
       <HeroOverlap />

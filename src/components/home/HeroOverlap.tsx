@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-
 export function HeroOverlap() {
   return (
     <section className="relative w-full overflow-hidden bg-charcoal py-16 md:py-24 lg:py-32">
@@ -16,23 +14,17 @@ export function HeroOverlap() {
             className="relative"
           >
             <div className="relative z-10 w-[65%]">
-              <Image
-                src="/portfolio/lyse-1_.jpg"
+              <img
+                src="/porfolio/LYSE%201_.jpg"
                 alt="Mariée élégante"
-                width={500}
-                height={700}
                 className="w-full object-cover shadow-2xl"
-                sizes="(max-width: 768px) 65vw, 30vw"
               />
             </div>
             <div className="absolute top-[15%] left-[35%] z-20 w-[65%]">
-              <Image
-                src="/portfolio/morgane---ronald-by-momento-2.jpg"
+              <img
+                src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%202.jpg"
                 alt="Couple au coucher du soleil"
-                width={500}
-                height={600}
                 className="w-full object-cover shadow-2xl"
-                sizes="(max-width: 768px) 65vw, 30vw"
               />
             </div>
           </motion.div>

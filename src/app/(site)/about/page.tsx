@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "\u00c0 propos",
@@ -12,12 +11,10 @@ export default async function AboutPage() {
   return (
     <div>
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
-        <Image
-          src="/portfolio/morgane---ronald-by-momento-3.jpg"
+        <img
+          src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%203.jpg"
           alt="Momento RDC"
-          fill
-          className="object-cover"
-          priority
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/45" />
         <div className="relative flex h-full items-end pb-16 px-6 md:px-10 lg:px-16">
@@ -101,13 +98,10 @@ export default async function AboutPage() {
             <Reveal delay={0.15}>
               <div className="sticky top-24">
                 <div className="overflow-hidden">
-                  <Image
-                    src="/portfolio/arianne---theo-3.jpg"
-                    alt="Momento \u2013 \u00c0 propos"
-                    width={600}
-                    height={800}
+                  <img
+                    src="/porfolio/ARIANNE%20%26%20THEO%203.jpg"
+                    alt="Momento – À propos"
                     className="w-full object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="mt-8 border border-line p-8">

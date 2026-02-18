@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { motion } from "framer-motion";
@@ -28,13 +27,11 @@ export function FullscreenGallery({ photos }: { photos: string[] }) {
               setOpen(true);
             }}
           >
-            <Image
+            <img
               src={src}
               alt="Momento portfolio"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              sizes="(max-width: 768px) 50vw, 33vw"
-              priority={i < 6}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              loading={i < 6 ? "eager" : "lazy"}
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
           </motion.div>

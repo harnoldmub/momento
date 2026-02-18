@@ -5,17 +5,17 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const sections = [
   {
-    image: "/portfolio/lyse---anthony-1-6.jpg",
+    image: "/porfolio/Lyse%20%26%20Anthony%201-6.jpg",
     title: "SINCÈRE",
     subtitle: "Capturer l'authenticité de chaque instant",
   },
   {
-    image: "/portfolio/morgane---ronald-by-momento-2.jpg",
+    image: "/porfolio/Morgane%20%26%20Ronald%20By%20Momento%202.jpg",
     title: "ROMANTIQUE",
     subtitle: "L'amour dans sa forme la plus pure",
   },
   {
-    image: "/portfolio/arianne---theo-1.jpg",
+    image: "/porfolio/ARIANNE%20%26%20THEO%201.jpg",
     title: "INTEMPOREL",
     subtitle: "Des souvenirs qui traversent le temps",
   },

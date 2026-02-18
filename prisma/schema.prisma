@@ -1,11 +1,9 @@
-// Dev schema (SQLite). For production PostgreSQL, use prisma/schema.postgres.prisma.
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -66,7 +64,7 @@ model Project {
   description String          @default("")
   date        DateTime?
   location    String          @default("")
-  tags        String          @default("") // comma-separated for simplicity
+  tags        String          @default("")
   featured    Boolean         @default(false)
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
@@ -108,7 +106,6 @@ model Lead {
   @@index([createdAt])
 }
 
-// Singleton row. Keep it simple: one record holds editable content + contacts.
 model SiteContent {
   id                Int      @id @default(1)
   heroTitle          String   @default("Momento RDC")
@@ -139,7 +136,7 @@ model Testimonial {
   message   String
   rating    Int?
   featured  Boolean  @default(true)
-  detail    String   @default("") // e.g. location/date
+  detail    String   @default("")
   order     Int      @default(0)
   createdAt DateTime @default(now())
 

@@ -5,16 +5,21 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { motion } from "framer-motion";
 
+const BATCH_SIZE = 30;
+
 export function FullscreenGallery({ photos }: { photos: string[] }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
 
   const slides = photos.map((src) => ({ src, alt: "Momento portfolio" }));
+  const visiblePhotos = photos.slice(0, visibleCount);
+  const hasMore = visibleCount < photos.length;
 
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3">
-        {photos.map((src, i) => (
+        {visiblePhotos.map((src, i) => (
           <motion.div
             key={src}
             initial={{ opacity: 0 }}
@@ -37,6 +42,17 @@ export function FullscreenGallery({ photos }: { photos: string[] }) {
           </motion.div>
         ))}
       </div>
+
+      {hasMore && (
+        <div className="flex justify-center py-16">
+          <button
+            onClick={() => setVisibleCount((c) => c + BATCH_SIZE)}
+            className="border border-ivory/30 px-12 py-4 text-[11px] tracking-[0.25em] uppercase text-ivory/70 hover:bg-ivory hover:text-charcoal transition-all duration-300"
+          >
+            Voir plus
+          </button>
+        </div>
+      )}
 
       <Lightbox
         open={open}

@@ -3,7 +3,7 @@ import { CinematicHero } from "@/components/home/CinematicHero";
 import { HeroOverlap } from "@/components/home/HeroOverlap";
 import { LoveShine } from "@/components/home/LoveShine";
 import { TestimonialCarousel } from "@/components/home/TestimonialCarousel";
-import { CinematicSection } from "@/components/home/CinematicSection";
+import { GalleryPreview } from "@/components/home/GalleryPreview";
 import { ReadySection } from "@/components/home/ReadySection";
 
 export default async function HomePage() {
@@ -40,7 +40,7 @@ export default async function HomePage() {
         }))}
       />
 
-      <CinematicSection />
+      <GalleryPreview />
 
       <ReadySection />
     </div>

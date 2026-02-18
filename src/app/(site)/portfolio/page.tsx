@@ -71,7 +71,7 @@ const allPhotos = [
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-black pt-20">
+    <div className="pt-20">
       <FullscreenGallery photos={allPhotos} />
     </div>
   );

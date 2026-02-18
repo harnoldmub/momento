@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/db";
 import { CinematicHero } from "@/components/home/CinematicHero";
-import { EditorialReveal } from "@/components/home/EditorialReveal";
 import { HeroOverlap } from "@/components/home/HeroOverlap";
 import { LoveShine } from "@/components/home/LoveShine";
 import { TestimonialCarousel } from "@/components/home/TestimonialCarousel";
@@ -26,8 +25,6 @@ export default async function HomePage() {
         videoUrl={content?.heroVideoUrl || null}
         imageUrl="/portfolio/lyse---anthony-1-6.jpg"
       />
-
-      <EditorialReveal />
 
       <HeroOverlap />
 

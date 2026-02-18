@@ -58,7 +58,7 @@ export function CinematicHero({
 
         <h1
           className="max-w-4xl text-5xl leading-[1.1] tracking-[0.04em] uppercase sm:text-6xl md:text-7xl lg:text-8xl italic text-white drop-shadow-lg"
-          style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif", textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}
+          style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif", textShadow: "0 2px 30px rgba(0,0,0,0.5)" }}
         >
           {title}
         </h1>

@@ -47,7 +47,7 @@ export function HeroOverlap() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.3] tracking-[0.04em]">
               <span
                 className="italic block"
-                style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+                style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
               >
                 SINCÈRE
               </span>
@@ -59,7 +59,7 @@ export function HeroOverlap() {
               </span>
               <span
                 className="italic block"
-                style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+                style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
               >
                 INTEMPOREL
               </span>

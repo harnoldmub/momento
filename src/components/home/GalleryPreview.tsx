@@ -48,7 +48,7 @@ export function GalleryPreview() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
             className="text-center text-2xl md:text-3xl uppercase tracking-[0.08em] text-white mb-6 italic"
-            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+            style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
           >
             Nos Galeries
           </motion.h3>

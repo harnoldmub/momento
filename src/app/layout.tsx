@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display, Work_Sans, Bodoni_Moda } from "next/font/google";
+import { Manrope, Playfair_Display, Work_Sans, GFS_Didot } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
@@ -15,11 +15,11 @@ const fontDisplay = Playfair_Display({
   display: "swap",
 });
 
-const fontDidot = Bodoni_Moda({
+const fontDidot = GFS_Didot({
   variable: "--font-didot",
-  subsets: ["latin"],
+  subsets: ["greek"],
   display: "swap",
-  style: ["normal", "italic"],
+  weight: "400",
 });
 
 const fontWorkSans = Work_Sans({

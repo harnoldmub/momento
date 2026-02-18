@@ -74,7 +74,7 @@ export function Header() {
             href="/portfolio"
             onClick={() => setMenuOpen(false)}
             className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
-            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+            style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
           >
             Portfolio
           </Link>
@@ -82,7 +82,7 @@ export function Header() {
             href="/about"
             onClick={() => setMenuOpen(false)}
             className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
-            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+            style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
           >
             About
           </Link>
@@ -90,7 +90,7 @@ export function Header() {
             href="/contact"
             onClick={() => setMenuOpen(false)}
             className="text-3xl tracking-[0.12em] uppercase text-ivory italic"
-            style={{ fontFamily: "var(--font-didot), 'Bodoni Moda', 'Didot', serif" }}
+            style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
           >
             Contact
           </Link>

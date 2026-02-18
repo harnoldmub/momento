@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Momento RDC (Website + Admin)
 
-## Getting Started
+Official showcase website for **Momento RDC** (Luxury & destination weddings, photography & films).
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + TypeScript
+- TailwindCSS
+- Framer Motion
+- Theme system: `next-themes` (Light par defaut + toggle persistant)
+- Prisma
+- DB: SQLite (dev) + PostgreSQL schema provided for production
+- Gallery: `yet-another-react-lightbox` + responsive masonry (CSS columns)
+
+## Quick Start
 
 ```bash
+npm install
+cp .env.example .env
+npx prisma db push
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Public site: `http://localhost:3000`
+- Admin: `http://localhost:3000/admin`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Admin Login (Seed)
 
-## Learn More
+- Email: `admin@momento.rdc`
+- Password: `Admin123!`
 
-To learn more about Next.js, take a look at the following resources:
+You can change it by updating the `AdminUser` record in the DB.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See `.env.example`.
 
-## Deploy on Vercel
+- `DATABASE_URL`
+  - Dev (SQLite): `file:./dev.db`
+  - Prod (PostgreSQL): use `prisma/schema.postgres.prisma` and a Postgres `DATABASE_URL`
+- `ADMIN_SESSION_SECRET`
+  - Used to sign admin session cookies (rotate in prod)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Resend (Optional)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you set:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM`
+- `LEADS_TO_EMAIL`
+
+Then booking inquiries will be emailed, in addition to being saved in the DB.
+
+## Media Storage
+
+- Dev uploads: stored locally at `public/uploads/<projectId>/...` via admin upload.
+- Production: recommended to use S3-compatible storage or Cloudinary.
+  - Current admin also supports adding remote URLs for images/videos.
+
+## Prisma Notes (SQLite dev + Postgres prod)
+
+Prisma datasource provider cannot be dynamic, so:
+
+- Dev schema: `prisma/schema.prisma` (SQLite)
+- Prod schema: `prisma/schema.postgres.prisma` (PostgreSQL)
+
+Scripts:
+
+- `npm run prisma:generate` (SQLite schema)
+- `npm run prisma:generate:postgres`
+- `npm run prisma:migrate:postgres`
+
+## Routes
+
+Public:
+
+- `/` home storytelling (hero + promesse + approche + stories + services + temoignages + closing CTA)
+- `/portfolio` filters + masonry + lightbox
+- `/portfolio/[slug]` project detail
+- `/about`
+- `/contact` booking form (DB + optional Resend)
+- `/legal`
+
+Admin:
+
+- `/admin/login`
+- `/admin` dashboard
+- `/admin/projects` CRUD + media upload/reorder
+- `/admin/leads` pipeline status (new/contacted/booked)
+- `/admin/site` edit hero/about/contacts/legal
+- `/admin/testimonials` CRUD (message, rating optionnel, featured)
+
+## Security / Node Version
+
+This repo is set up to run on **Node 18.18+** (required by Prisma v6).
+
+If you can upgrade to **Node 20+**, you can also upgrade Next.js to the latest major for the newest security patches.

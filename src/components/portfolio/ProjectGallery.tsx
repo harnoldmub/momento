@@ -31,7 +31,7 @@ export function ProjectGallery({ media }: { media: Media[] }) {
   return (
     <div>
       {videos.length ? (
-        <div className="mb-8 rounded-2xl border border-line bg-white/3 p-5">
+        <div className="mb-8 rounded-2xl border border-line bg-black/[0.03] p-5 dark:bg-white/3">
           <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
             Film
           </div>
@@ -45,7 +45,7 @@ export function ProjectGallery({ media }: { media: Media[] }) {
         {photos.map((m, i) => (
           <button
             key={m.id}
-            className="block w-full break-inside-avoid overflow-hidden rounded-2xl border border-line bg-white/3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+            className="block w-full break-inside-avoid overflow-hidden rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
             onClick={() => {
               setIndex(sorted.findIndex((x) => x.id === m.id));
               setOpen(true);

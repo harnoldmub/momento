@@ -23,7 +23,7 @@ export default async function LegalPage() {
         </div>
       </Reveal>
 
-      <div className="mt-12 rounded-3xl border border-line bg-white/3 p-10 md:p-14">
+      <div className="mt-12 rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-10 md:p-14">
         <SimpleMarkdown text={content?.legalMarkdown || ""} />
       </div>
     </div>

@@ -48,7 +48,7 @@ export default async function ProjectPage({
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-charcoal/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/55" />
           <div className="absolute inset-0 bg-[radial-gradient(1000px_500px_at_60%_25%,rgba(15,76,92,0.22),transparent_60%)]" />
         </div>
 
@@ -83,7 +83,7 @@ export default async function ProjectPage({
 
       <section className="border-t border-line bg-charcoal-2">
         <div className="w-full px-5 md:px-8 lg:px-12 py-16">
-          <div className="grid gap-8 rounded-3xl border border-line bg-white/3 p-10 md:grid-cols-2 md:p-14">
+          <div className="grid gap-8 rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-10 md:grid-cols-2 md:p-14">
             <div>
               <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                 Booking

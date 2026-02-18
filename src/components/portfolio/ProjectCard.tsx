@@ -19,7 +19,7 @@ export function ProjectCard({
   return (
     <Link
       href={`/portfolio/${slug}`}
-      className="group relative overflow-hidden rounded-2xl border border-line bg-white/3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+      className="group relative overflow-hidden rounded-2xl border border-line bg-black/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:bg-white/3"
     >
       <div className="relative aspect-[4/5]">
         <Image
@@ -30,7 +30,7 @@ export function ProjectCard({
           className="object-cover transition duration-700 group-hover:scale-[1.03]"
           priority={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/5 to-transparent opacity-85 transition group-hover:opacity-95" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-transparent opacity-85 transition group-hover:opacity-95" />
       </div>
       <div className="absolute inset-x-0 bottom-0 p-5">
         <div className="text-[11px] tracking-[0.28em] uppercase text-ivory/65">
@@ -41,9 +41,8 @@ export function ProjectCard({
         </div>
       </div>
       <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
-        <div className="absolute inset-0 bg-[radial-gradient(700px_280px_at_30%_20%,rgba(15,76,92,0.22),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(700px_280px_at_30%_20%,rgba(255,255,255,0.18),transparent_60%)] dark:bg-[radial-gradient(700px_280px_at_30%_20%,rgba(220,217,208,0.18),transparent_60%)]" />
       </div>
     </Link>
   );
 }
-

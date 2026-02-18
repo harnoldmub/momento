@@ -58,7 +58,7 @@ export function BookingForm() {
           <span className="text-ivory/80">Type</span>
           <select
             name="inquiryType"
-            className="h-12 w-full rounded-xl border border-line bg-white/5 px-4 text-ivory outline-none transition focus:border-ivory/30 focus:bg-white/7"
+            className="h-12 w-full rounded-xl border border-line bg-black/[0.03] px-4 text-ivory outline-none transition focus:border-ivory/35 focus:bg-black/[0.05] dark:bg-white/5 dark:focus:bg-white/7"
             defaultValue="WEDDING"
           >
             <option value="WEDDING">Wedding</option>
@@ -93,4 +93,3 @@ export function BookingForm() {
     </form>
   );
 }
-

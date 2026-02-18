@@ -55,7 +55,7 @@ export default async function HomePage() {
               </h2>
             </div>
             <div className="md:col-span-8">
-              <div className="rounded-3xl border border-line bg-white/3 p-8 md:p-10">
+              <div className="rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-8 md:p-10">
                 <p className="text-base leading-relaxed text-ivory/78">
                   {content?.brandPresentation ||
                     "Momento est une entreprise de photographes et vidéographes passionnés, engagés à capturer les moments les plus précieux de votre journée de mariage. Nous croyons que chaque mariage est unique et nous travaillons dur pour offrir des photos et des vidéos de qualité qui reflètent cette individualité."}
@@ -84,7 +84,7 @@ export default async function HomePage() {
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             <Reveal delay={0.03}>
-              <div className="rounded-2xl border border-line bg-white/3 p-8">
+              <div className="rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-8">
                 <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                   01 · Avant
                 </div>
@@ -99,7 +99,7 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.06}>
-              <div className="rounded-2xl border border-line bg-white/3 p-8">
+              <div className="rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-8">
                 <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                   02 · Pendant
                 </div>
@@ -114,7 +114,7 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.09}>
-              <div className="rounded-2xl border border-line bg-white/3 p-8">
+              <div className="rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-8">
                 <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                   03 · Après
                 </div>
@@ -177,7 +177,7 @@ export default async function HomePage() {
                 <p className="mt-5 text-sm leading-relaxed text-ivory/65">{microText5}</p>
               </div>
 
-              <div className="grid gap-5 rounded-2xl border border-line bg-white/3 p-7">
+              <div className="grid gap-5 rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-7">
                 <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                   Photography
                 </div>
@@ -186,7 +186,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className="grid gap-5 rounded-2xl border border-line bg-white/3 p-7">
+              <div className="grid gap-5 rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-7">
                 <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                   Video & Films
                 </div>
@@ -214,7 +214,7 @@ export default async function HomePage() {
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {testimonials.map((t, i) => (
               <Reveal key={t.id} delay={0.03 * (i % 3)}>
-                <div className="rounded-2xl border border-line bg-white/3 p-8">
+                <div className="rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-8">
                   <div className="text-sm tracking-[0.1em] text-accent">{stars(t.rating)}</div>
                   <div className="mt-4 text-sm leading-relaxed text-ivory/72">
                     “{t.message}”

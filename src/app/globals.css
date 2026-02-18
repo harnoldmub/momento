@@ -2,13 +2,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #fbfaf7;
-  --bg2: #f2efea;
-  --text: #0f1115;
-  --muted: rgba(15, 17, 21, 0.68);
-  --line: rgba(15, 17, 21, 0.14);
-  --accent: #0f4c5c; /* deep teal */
-  --accent2: #0b2a33;
+  /* Inspired by the reference site's warm neutral palette */
+  --bg: #dcd9d0; /* warm beige */
+  --bg2: #ffffff; /* paper white */
+  --text: #282626; /* near-black */
+  --muted: rgba(40, 38, 38, 0.66);
+  --line: rgba(40, 38, 38, 0.16);
+  --accent: #282626;
+  --accent2: #111111;
 }
 
 .dark {
@@ -17,6 +18,8 @@
   --text: #f2efe7;
   --muted: rgba(242, 239, 231, 0.72);
   --line: rgba(242, 239, 231, 0.12);
+  --accent: #f2efe7;
+  --accent2: #dcd9d0;
 }
 
 @theme inline {
@@ -41,7 +44,7 @@ body {
 
 /* Premium selection */
 ::selection {
-  background: rgba(15, 76, 92, 0.55);
+  background: rgba(40, 38, 38, 0.18);
   color: var(--text);
 }
 

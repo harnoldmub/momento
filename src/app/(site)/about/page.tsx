@@ -29,7 +29,7 @@ export default async function AboutPage() {
 
       <div className="mt-12 grid gap-10 md:grid-cols-12">
         <div className="md:col-span-7">
-          <div className="rounded-3xl border border-line bg-white/3 p-10 md:p-14">
+          <div className="rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-10 md:p-14">
             <p className="text-base leading-relaxed text-ivory/78">
               {content?.brandPresentation ||
                 "Momento est une entreprise de photographes et vidéographes passionnés, engagés à capturer les moments les plus précieux de votre journée de mariage. Nous croyons que chaque mariage est unique et nous travaillons dur pour offrir des photos et des vidéos de qualité qui reflètent cette individualité."}
@@ -39,7 +39,7 @@ export default async function AboutPage() {
                 "Nous croyons que chaque mariage est unique et mérite d'être capturé de manière authentique et émouvante. Ce serait un grand honneur et un plaisir pour nous de faire partie de votre journée spéciale et d'immortaliser vos souvenirs les plus précieux. Contactez-nous pour discuter de la manière dont nous pouvons immortaliser l’un des plus beaux jours de votre vie."}
             </p>
           </div>
-          <div className="mt-6 rounded-3xl border border-line bg-white/3 p-10 md:p-14">
+          <div className="mt-6 rounded-3xl border border-line bg-black/[0.03] dark:bg-white/3 p-10 md:p-14">
             <SimpleMarkdown text={content?.aboutMarkdown || ""} />
           </div>
         </div>

@@ -30,7 +30,7 @@ export default async function ContactPage() {
               next steps.
             </p>
 
-            <div className="mt-10 grid gap-3 rounded-2xl border border-line bg-white/3 p-7 text-sm">
+            <div className="mt-10 grid gap-3 rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3 p-7 text-sm">
               <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
                 Direct contact
               </div>

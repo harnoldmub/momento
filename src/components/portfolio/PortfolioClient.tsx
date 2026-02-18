@@ -44,7 +44,7 @@ export function PortfolioClient({ projects }: { projects: ProjectWithMedia[] }) 
             "rounded-full border px-4 py-2 text-xs tracking-[0.22em] uppercase transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60",
             filter === ALL
               ? "border-ivory/30 bg-white/6 text-ivory"
-              : "border-line text-ivory/65 hover:border-ivory/20 hover:bg-white/5",
+              : "border-line text-ivory/65 hover:border-ivory/20 hover:bg-black/[0.04] dark:bg-white/5",
           )}
         >
           All
@@ -57,7 +57,7 @@ export function PortfolioClient({ projects }: { projects: ProjectWithMedia[] }) 
               "rounded-full border px-4 py-2 text-xs tracking-[0.22em] uppercase transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60",
               filter === c
                 ? "border-ivory/30 bg-white/6 text-ivory"
-                : "border-line text-ivory/65 hover:border-ivory/20 hover:bg-white/5",
+                : "border-line text-ivory/65 hover:border-ivory/20 hover:bg-black/[0.04] dark:bg-white/5",
             )}
           >
             {CATEGORY_LABEL[c]}
@@ -69,7 +69,7 @@ export function PortfolioClient({ projects }: { projects: ProjectWithMedia[] }) 
         {filtered.map((p) => (
           <article
             key={p.id}
-            className="break-inside-avoid overflow-hidden rounded-2xl border border-line bg-white/3"
+            className="break-inside-avoid overflow-hidden rounded-2xl border border-line bg-black/[0.03] dark:bg-white/3"
           >
             <button
               className="group relative block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
@@ -90,7 +90,7 @@ export function PortfolioClient({ projects }: { projects: ProjectWithMedia[] }) 
                 height={2000}
                 className="h-auto w-full object-cover transition duration-700 group-hover:scale-[1.02]"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent opacity-85" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-85" />
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <div className="text-[11px] tracking-[0.28em] uppercase text-ivory/65">
                   {CATEGORY_LABEL[p.category]} {p.location ? `· ${p.location}` : ""}

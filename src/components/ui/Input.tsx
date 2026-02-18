@@ -11,7 +11,7 @@ export function Input({ label, hint, className, ...props }: Props) {
       {label ? <span className="text-ivory/80">{label}</span> : null}
       <input
         className={cn(
-          "h-12 w-full rounded-xl border border-line bg-white/5 px-4 text-ivory placeholder:text-ivory/35 outline-none transition focus:border-ivory/30 focus:bg-white/7",
+          "h-12 w-full rounded-xl border border-line bg-black/[0.03] px-4 text-ivory placeholder:text-ivory/35 outline-none transition focus:border-ivory/35 focus:bg-black/[0.05] dark:bg-white/5 dark:focus:bg-white/7",
           className,
         )}
         {...props}
@@ -20,4 +20,3 @@ export function Input({ label, hint, className, ...props }: Props) {
     </label>
   );
 }
-

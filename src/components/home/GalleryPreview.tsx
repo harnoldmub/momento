@@ -13,7 +13,6 @@ export function GalleryPreview() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7], [0.3, 0.55, 0.7]);
 
   return (
     <section className="bg-charcoal">
@@ -23,31 +22,27 @@ export function GalleryPreview() {
           style={{ y, scale }}
         >
           <img
-            src="/portfolio/lyse---anthony-3.jpg"
+            src="/porfolio/Lyse & Anthony 3.jpg"
             alt="Galerie mariage"
-            className="w-full h-full object-cover grayscale"
+            className="w-full h-full object-cover"
             style={{ minHeight: "120%" }}
           />
         </motion.div>
 
-        <motion.div
-          className="absolute inset-0 bg-black"
-          style={{ opacity: overlayOpacity }}
-        />
-
-        <div className="absolute inset-0 pointer-events-none"
+        <div
+          className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.8) 100%)"
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.75) 100%)"
           }}
         />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-20 px-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
           <motion.h3
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-center text-2xl md:text-3xl uppercase tracking-[0.08em] text-white mb-6 italic"
+            className="text-center text-3xl md:text-4xl lg:text-5xl uppercase tracking-[0.08em] text-white mb-6 italic"
             style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
           >
             Nos Galeries
@@ -57,7 +52,7 @@ export function GalleryPreview() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-center text-sm md:text-base text-white/80 max-w-xl leading-relaxed mb-10"
+            className="text-center text-sm md:text-base text-white/90 max-w-xl leading-relaxed mb-10"
             style={{ fontFamily: "var(--font-worksans), 'Work Sans', sans-serif", fontWeight: 300 }}
           >
             Chaque mariage a sa propre histoire, remplie de moments, d&apos;émotions et de souvenirs.
@@ -71,7 +66,7 @@ export function GalleryPreview() {
           >
             <Link
               href="/portfolio"
-              className="inline-block bg-white text-charcoal px-10 py-3.5 text-[11px] tracking-[0.25em] uppercase rounded-full hover:bg-ivory transition-colors duration-300 font-medium"
+              className="inline-block border border-white px-10 py-3.5 text-[11px] tracking-[0.25em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300"
             >
               Voir les galeries
             </Link>
@@ -81,7 +76,7 @@ export function GalleryPreview() {
 
       <div className="h-[50vh] md:h-[60vh]">
         <img
-          src="/portfolio/img_6468.jpg"
+          src="/porfolio/IMG_6468.jpg"
           alt="Détails mariage"
           className="w-full h-full object-cover"
         />

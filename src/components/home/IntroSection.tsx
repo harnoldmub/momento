@@ -119,7 +119,7 @@ export function IntroSection() {
           >
             <div className="aspect-[3/4] overflow-hidden">
               <img
-                src="home/home-about.jpg"
+                src="/home/home-about.jpg"
                 alt="Momento wedding Andrea"
                 className="w-full h-full object-cover"
               />

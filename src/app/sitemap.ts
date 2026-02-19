@@ -7,7 +7,8 @@ export default async function sitemap() {
 
   const staticRoutes = [
     { url: `${base}/`, lastModified: new Date() },
-    { url: `${base}/portfolio`, lastModified: new Date() },
+    { url: `${base}/portfolio/mariages`, lastModified: new Date() },
+    { url: `${base}/portfolio/save_the_date`, lastModified: new Date() },
     { url: `${base}/about`, lastModified: new Date() },
     { url: `${base}/contact`, lastModified: new Date() },
     { url: `${base}/legal`, lastModified: new Date() },

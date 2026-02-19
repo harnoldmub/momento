@@ -18,7 +18,7 @@ export default async function ContactPage() {
     <div>
       <section className="relative h-[45vh] md:h-[55vh] overflow-hidden">
         <img
-          src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%207.jpg"
+          src="/contact/contact-h.jpg"
           alt="Contact Momento"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -94,8 +94,8 @@ export default async function ContactPage() {
                   </div>
 
                   <div className="mt-6 pt-6 border-t border-line text-xs text-ivory/35 space-y-1">
-                    <p>Bas&eacute;s en Afrique, disponibles dans le monde entier.</p>
-                    <p>Nous voyageons l&agrave; o&ugrave; votre histoire nous appelle.</p>
+                    <p>Basés entre Paris et Kinshasa &middot; Disponibles partout dans le monde.</p>
+                    <p>Nous voyageons là où votre héritage nous appelle.</p>
                   </div>
                 </div>
               </div>

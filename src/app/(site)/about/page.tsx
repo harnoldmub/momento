@@ -12,7 +12,7 @@ export default async function AboutPage() {
     <div>
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <img
-          src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%203.jpg"
+          src="/about/about-h.jpg"
           alt="Momento RDC"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -22,8 +22,8 @@ export default async function AboutPage() {
             <div className="text-[11px] tracking-[0.35em] uppercase text-white/50 mb-4">
               &Agrave; propos
             </div>
-            <h1 className="font-[var(--font-display)] text-4xl md:text-5xl lg:text-6xl tracking-[0.04em] uppercase text-white max-w-3xl">
-              Notre Histoire
+            <h1 className="font-[var(--font-display)] text-4xl md:text-5xl lg:text-3xl tracking-[0.04em] uppercase text-white max-w-3xl">
+              Notre Histoire – L’Art de Raconter le Vôtre
             </h1>
           </div>
         </div>
@@ -38,21 +38,15 @@ export default async function AboutPage() {
                   <h2 className="font-[var(--font-display)] text-2xl md:text-3xl tracking-[0.06em] uppercase mb-6">
                     L&apos;Art de Raconter le V&ocirc;tre
                   </h2>
-                  <div className="space-y-5 text-sm md:text-base leading-relaxed text-ivory/60">
+                  <div className="space-y-6 text-sm md:text-base leading-relaxed text-ivory/60">
                     <p>
-                      Momento est n&eacute; d&apos;une conviction simple :
-                      un mariage n&apos;est pas un &eacute;v&eacute;nement.
-                      C&apos;est un h&eacute;ritage.
-                    </p>
-                    <p>
-                      Fond&eacute; par deux passionn&eacute;s d&apos;image et de narration, Momento est
-                      devenu une r&eacute;f&eacute;rence en photographie et vid&eacute;ographie de mariage
-                      pour les couples qui recherchent l&apos;excellence.
+                      Momento est né d&apos;une conviction simple :
+                      Un mariage n&apos;est pas un événement. C&apos;est un héritage.
                     </p>
                     <p>
                       Nous croyons que les plus belles images naissent de la confiance.
-                      Avant de sortir nos cam&eacute;ras, nous apprenons &agrave; vous conna&icirc;tre.
-                      Votre histoire, votre culture, votre vision.
+                      Votre histoire, votre culture, votre vision — nous apprenons à vous connaître
+                      avant d&apos;allumer nos caméras.
                     </p>
                   </div>
                 </div>
@@ -63,31 +57,27 @@ export default async function AboutPage() {
                   </h3>
                   <div className="grid gap-5">
                     <div className="flex items-start gap-4">
-                      <span className="text-ivory/30 text-lg mt-0.5">01</span>
+                      <span className="text-ivory/30 text-lg mt-0.5">🎥</span>
                       <div>
-                        <div className="text-sm font-medium text-ivory/80">Storytelling cin&eacute;matographique</div>
-                        <p className="text-sm text-ivory/50 mt-1">Une narration fluide, immersive, inspir&eacute;e du cin&eacute;ma.</p>
+                        <div className="text-sm font-medium text-ivory/80">Storytelling cinématographique</div>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <span className="text-ivory/30 text-lg mt-0.5">02</span>
+                      <span className="text-ivory/30 text-lg mt-0.5">📸</span>
                       <div>
-                        <div className="text-sm font-medium text-ivory/80">Photographie &eacute;l&eacute;gante et intemporelle</div>
-                        <p className="text-sm text-ivory/50 mt-1">Des couleurs naturelles, raffin&eacute;es. Une esth&eacute;tique qui traverse le temps.</p>
+                        <div className="text-sm font-medium text-ivory/80">Photographie élégante et intemporelle</div>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <span className="text-ivory/30 text-lg mt-0.5">03</span>
+                      <span className="text-ivory/30 text-lg mt-0.5">🌍</span>
                       <div>
-                        <div className="text-sm font-medium text-ivory/80">Destination weddings</div>
-                        <p className="text-sm text-ivory/50 mt-1">Accompagnement mondial pour les mariages les plus ambitieux.</p>
+                        <div className="text-sm font-medium text-ivory/80">Accompagnement pour les destination weddings</div>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <span className="text-ivory/30 text-lg mt-0.5">04</span>
+                      <span className="text-ivory/30 text-lg mt-0.5">🎬</span>
                       <div>
-                        <div className="text-sm font-medium text-ivory/80">Films premium haute qualit&eacute;</div>
-                        <p className="text-sm text-ivory/50 mt-1">Des films de mariage con&ccedil;us comme des &oelig;uvres cin&eacute;matographiques.</p>
+                        <div className="text-sm font-medium text-ivory/80">Films de mariage premium en haute qualité</div>
                       </div>
                     </div>
                   </div>
@@ -99,18 +89,18 @@ export default async function AboutPage() {
               <div className="sticky top-24">
                 <div className="overflow-hidden">
                   <img
-                    src="/porfolio/ARIANNE%20%26%20THEO%203.jpg"
+                    src="/about/about-2.jpg"
                     alt="Momento – À propos"
                     className="w-full object-cover"
                   />
                 </div>
-                <div className="mt-8 border border-line p-8">
-                  <p className="text-sm leading-relaxed text-ivory/55 italic">
-                    &ldquo;Nous travaillons avec des couples exigeants qui veulent plus qu&apos;un
-                    souvenir : ils veulent revivre leur journ&eacute;e encore et encore.&rdquo;
+                <div className="mt-8 border border-line p-8 text-center">
+                  <p className="text-base leading-relaxed text-white font-light italic">
+                    Nous travaillons avec des couples exigeants qui veulent plus qu&apos;un souvenir :
+                    Ils veulent revivre leur journée encore et encore.
                   </p>
-                  <div className="mt-4 text-[11px] tracking-[0.3em] uppercase text-ivory/35">
-                    Momento &mdash; L&apos;alliance entre &eacute;motion, esth&eacute;tisme et excellence
+                  <div className="mt-6 text-[11px] tracking-[0.4em] uppercase text-ivory/40">
+                    Momento — emotion, esthétisme et excellence technique
                   </div>
                 </div>
               </div>

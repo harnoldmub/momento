@@ -23,13 +23,13 @@ export function BookingForm() {
       });
       if (!res.ok) {
         const j = await res.json().catch(() => null);
-        throw new Error(j?.error || "Failed to send");
+        throw new Error(j?.error || "Échec de l'envoi");
       }
       setStatus("sent");
       e.currentTarget.reset();
     } catch (err: any) {
       setStatus("error");
-      setError(err?.message || "Something went wrong");
+      setError(err?.message || "Une erreur est survenue");
     }
   }
 

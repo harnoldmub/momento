@@ -88,7 +88,7 @@ export default async function ProjectPage({
               </div>
               <div className="flex gap-4">
                 <Button href="/contact">Parlons de votre mariage</Button>
-                <Button href="/portfolio" variant="outline">
+                <Button href="/portfolio/mariages" variant="outline">
                   Retour au portfolio
                 </Button>
               </div>

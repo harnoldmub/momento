@@ -17,7 +17,7 @@ export function ReadySection() {
           >
             <div className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden">
               <img
-                src="/porfolio/Lyse%20%26%20Anthony%201-6.jpg"
+                src="/portfolio/mariage/portfolio_mariage_1.jpg"
                 alt="Momento"
                 className="w-full h-full object-cover"
               />

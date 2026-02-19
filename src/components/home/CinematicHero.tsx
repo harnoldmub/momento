@@ -45,9 +45,10 @@ export function CinematicHero({
             className="h-full w-full object-cover animate-slow-zoom"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/70" />
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/70" /> */}
       </div>
 
+      {/* 
       <div className="relative flex h-full flex-col items-center justify-center px-6 text-center text-white">
         <div
           className="mb-8 text-[11px] tracking-[0.5em] uppercase text-white/70"
@@ -80,10 +81,10 @@ export function CinematicHero({
             {ctaText}
           </Link>
           <Link
-            href="/portfolio"
+            href="/contact"
             className="px-6 py-3 text-[11px] tracking-[0.3em] uppercase text-white/65 transition-colors hover:text-white"
           >
-            Explorer le portfolio
+            Nous contacter
           </Link>
         </div>
 
@@ -100,6 +101,7 @@ export function CinematicHero({
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
+      */}
     </section>
   );
 }

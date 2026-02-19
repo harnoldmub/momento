@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/db";
 import { CinematicHero } from "@/components/home/CinematicHero";
+import { IntroSection } from "@/components/home/IntroSection";
+import { ApproachSection } from "@/components/home/ApproachSection";
 import { HeroOverlap } from "@/components/home/HeroOverlap";
 import { LoveShine } from "@/components/home/LoveShine";
 import { TestimonialCarousel } from "@/components/home/TestimonialCarousel";
@@ -17,14 +19,18 @@ export default async function HomePage() {
   return (
     <div>
       <CinematicHero
-        title="Momento"
-        subtitle="Photographe & vidéaste de mariage. Des instants qui ne se répètent jamais, capturés avec art et émotion."
-        ctaText="Découvrir notre univers"
-        ctaHref="/portfolio"
+        title=""
+        subtitle="Photographe & Vidéaste de Mariage – Destination Wedding & Films d’Exception"
+        ctaText="Découvrir nos mariages"
+        ctaHref="/portfolio/mariages"
         nowBookingText={content?.nowBookingText || "Now booking 2026–2027"}
         videoUrl={content?.heroVideoUrl || null}
-        imageUrl="/porfolio/Lyse%20%26%20Anthony%201-6.jpg"
+        imageUrl="/hero/hero.jpg"
       />
+
+      <IntroSection />
+
+      <ApproachSection />
 
       <HeroOverlap />
 

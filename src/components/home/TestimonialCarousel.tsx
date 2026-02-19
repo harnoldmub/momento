@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Testimonial = {
-  id: number;
+  id: string;
   name: string;
   detail: string | null;
   message: string;
@@ -35,7 +35,7 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
       <div className="relative h-[70vh] md:h-[80vh]">
         <div
           className="absolute inset-0 bg-cover bg-center transition-opacity duration-700"
-          style={{ backgroundImage: `url(/porfolio/IMG_6008.jpg)` }}
+          style={{ backgroundImage: `url(/home/home-11.jpg)` }}
 
         />
         <div className="absolute inset-0 bg-black/60" />
@@ -78,9 +78,8 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
                   <button
                     key={i}
                     onClick={() => setCurrent(i)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      i === current ? "bg-white/80 w-4" : "bg-white/25"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${i === current ? "bg-white/80 w-4" : "bg-white/25"
+                      }`}
                     aria-label={`T\u00e9moignage ${i + 1}`}
                   />
                 ))}

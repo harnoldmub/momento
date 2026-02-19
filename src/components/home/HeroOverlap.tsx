@@ -15,14 +15,14 @@ export function HeroOverlap() {
           >
             <div className="relative z-10 w-[65%]">
               <img
-                src="/porfolio/LYSE%201_.jpg"
+                src="/home/home-15.jpg"
                 alt="Mariée élégante"
                 className="w-full object-cover shadow-2xl"
               />
             </div>
             <div className="absolute top-[15%] left-[35%] z-20 w-[65%]">
               <img
-                src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%202.jpg"
+                src="/home/home-9.jpg"
                 alt="Couple au coucher du soleil"
                 className="w-full object-cover shadow-2xl"
               />

@@ -18,11 +18,11 @@ export async function Footer() {
               className="h-10 w-auto mb-2"
             />
             <p className="mt-4 text-sm leading-relaxed text-ivory/50 max-w-xs">
-              Photographe & vid&eacute;aste de mariage international. Films
-              cin&eacute;matographiques & photographie haut de gamme.
+              Photographie & vidéaste de mariage international. Nous créons des films
+              cinématographiques et des captures d&apos;exception pour immortaliser votre héritage.
             </p>
             <p className="mt-3 text-xs text-ivory/40">
-              Bas&eacute;s en Afrique, disponibles dans le monde entier.
+              Basés entre Paris et Kinshasa &middot; Disponibles partout dans le monde.
             </p>
           </div>
 
@@ -34,7 +34,7 @@ export async function Footer() {
               <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/">
                 Accueil
               </Link>
-              <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/portfolio">
+              <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/portfolio/mariages">
                 Portfolio
               </Link>
               <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/about">

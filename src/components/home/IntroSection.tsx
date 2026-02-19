@@ -32,8 +32,10 @@ export function IntroSection() {
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-start text-left">
             <div className="lg:flex-[1.2] space-y-6">
               <p className="text-2xl md:text-3xl lg:text-4xl font-light italic leading-[1.3]">
-                Un regard avant l&apos;autel.<br />
-                Une main qui tremble.<br />
+                Un regard avant l&apos;autel.
+                <br />
+                Une main qui tremble.
+                <br />
                 Un sourire pour toujours.
               </p>
               <div className="h-px w-20 bg-black/10" />
@@ -43,9 +45,12 @@ export function IntroSection() {
             </div>
             <div className="lg:flex-1 text-[14px] md:text-[15px] leading-[1.8] font-light opacity-75 lg:pt-3">
               <p>
-                Sp&eacute;cialis&eacute;s en photographie de mariage haut de gamme et en film cin&eacute;matographique,
-                nous capturons l&apos;&eacute;l&eacute;gance de vos &eacute;motions &agrave; travers le monde.
-                Du d&eacute;sert de Duba&iuml; aux rives d&apos;Europe, chaque instant devient une &oelig;uvre intemporelle.
+                Sp&eacute;cialis&eacute;s en photographie de mariage haut de
+                gamme et en film cin&eacute;matographique, nous capturons
+                l&apos;&eacute;l&eacute;gance de vos &eacute;motions &agrave;
+                travers le monde. Du d&eacute;sert de Duba&iuml; aux rives
+                d&apos;Europe, chaque instant devient une &oelig;uvre
+                intemporelle.
               </p>
             </div>
           </div>
@@ -74,20 +79,24 @@ export function IntroSection() {
           >
             <h3
               className="text-4xl md:text-5xl mb-10 italic"
-              style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}
+              style={{
+                fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif",
+              }}
             >
-              <span className="text-2xl not-italic uppercase tracking-widest block mb-2 opacity-60">&Agrave; propos de</span>
+              <span className="text-2xl not-italic uppercase tracking-widest block mb-2 opacity-60">
+                &Agrave; propos de
+              </span>
               Momento
             </h3>
             <div className="space-y-6 text-[14px] md:text-[15px] leading-relaxed font-light opacity-80 max-w-lg">
               <p>
-                Je suis Dave, l&apos;&acirc;me cr&eacute;ative derri&egrave;re Momento. Un conteur passionn&eacute; par l&apos;art de capturer les moments les plus significatifs de votre vie.
+                Momento, c&apos;est bien plus qu&apos;un studio de photographie et de film. C&apos;est une vision, un regard pos&eacute; sur l&apos;amour dans ce qu&apos;il a de plus vrai, de plus &eacute;l&eacute;gant, de plus intemporel.
               </p>
               <p>
-                Mon parcours a commenc&eacute; dans la musique, mais l&apos;amour et la famille ont red&eacute;fini ma vision du lien, de la beaut&eacute; et de la romance.
+                N&eacute; entre Kinshasa et Paris, Momento fusionne l&apos;&acirc;me africaine et le raffinement europ&eacute;en pour raconter chaque histoire avec profondeur, sensibilit&eacute; et une esth&eacute;tique cin&eacute;matographique.
               </p>
               <p>
-                Aujourd&apos;hui, je capture les mariages avec un c&oelig;ur sauvage, une touche artistique et une intentionnalit&eacute; profonde &mdash; pour cr&eacute;er des images aussi vibrantes que vos souvenirs eux-m&ecirc;mes.
+                Chaque mariage est unique. Chaque couple porte en lui un h&eacute;ritage, une promesse, une &eacute;motion que nous nous engageons &agrave; immortaliser &mdash; avec passion, pr&eacute;cision et un sens inn&eacute; du beau.
               </p>
             </div>
             <div className="mt-12">
@@ -110,8 +119,8 @@ export function IntroSection() {
           >
             <div className="aspect-[3/4] overflow-hidden">
               <img
-                src="/porfolio/Morgane%20%26%20Ronald%20By%20Momento%204.jpg"
-                alt="Momento Photographer"
+                src="home/home-about.jpg"
+                alt="Momento wedding Andrea"
                 className="w-full h-full object-cover"
               />
             </div>

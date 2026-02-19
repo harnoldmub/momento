@@ -32,20 +32,32 @@ const fontWorkSans = Work_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: {
-    default: "Momento RDC | Luxury Wedding Photography & Films",
+    default: "Momento RDC | Photographie & Films de Mariage",
     template: "%s | Momento RDC",
   },
   description:
-    "Luxury & destination weddings photography and films. Based in RDC + France, available worldwide. Now booking 2026–2027.",
+    "Photographie & films de mariage haut de gamme. Bas\u00e9s \u00e0 Kinshasa & Paris, disponibles dans le monde entier.",
   openGraph: {
     type: "website",
-    title: "Momento RDC",
+    title: "Momento RDC | Photographie & Films de Mariage",
     description:
-      "Luxury & destination weddings photography and films. Based in RDC + France, available worldwide.",
+      "Photographie & films de mariage haut de gamme. Bas\u00e9s \u00e0 Kinshasa & Paris, disponibles dans le monde entier.",
     siteName: "Momento RDC",
+    images: [
+      {
+        url: "/home/home-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Momento RDC - Photographie de mariage",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Momento RDC | Photographie & Films de Mariage",
+    description:
+      "Photographie & films de mariage haut de gamme. Bas\u00e9s \u00e0 Kinshasa & Paris, disponibles dans le monde entier.",
+    images: ["/home/home-1.jpg"],
   },
   icons: {
     icon: "/favicon.ico",

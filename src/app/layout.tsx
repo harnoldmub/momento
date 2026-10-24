@@ -54,13 +54,13 @@ export const metadata: Metadata = {
     title: "Momento | Photographe & Vidéaste de Mariage – Paris, France, Belgique",
     description:
       "Photographie et films de mariage d'exception. Basés à Paris et Kinshasa, disponibles en France, en Belgique et dans le monde entier.",
-    images: [{ url: "/hero/hero.jpg", width: 1919, height: 1084, alt: "Momento – photographe de mariage" }],
+    images: [{ url: "/home/home-1.jpg", alt: "Momento – photographe de mariage" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Momento | Photographe & Vidéaste de Mariage",
     description: "Photographie et films de mariage d'exception à Paris, en France, en Belgique et à Kinshasa.",
-    images: ["/hero/hero.jpg"],
+    images: ["/home/home-1.jpg"],
   },
   robots: {
     index: true,

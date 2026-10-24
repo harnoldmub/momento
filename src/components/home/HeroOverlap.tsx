@@ -36,7 +36,7 @@ export function HeroOverlap() {
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-start md:items-end md:text-right"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.3] tracking-[0.04em]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.3] tracking-[0.04em] mt-8 md:mt-12">
               <span
                 className="italic block"
                 style={{ fontFamily: "var(--font-didot), 'GFS Didot', 'Didot', serif" }}

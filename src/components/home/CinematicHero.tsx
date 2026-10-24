@@ -41,7 +41,7 @@ export function CinematicHero({
         ) : (
           <img
             src={imageUrl}
-            alt="Momento hero"
+            alt="Photographe et vidéaste de mariage Momento – Paris, France, Belgique"
             className="h-full w-full object-cover animate-slow-zoom"
           />
         )}

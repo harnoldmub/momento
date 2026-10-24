@@ -23,7 +23,7 @@ export function GalleryPreview() {
         >
           <img
             src="/home/home-13.jpg"
-            alt="Galerie mariage"
+            alt="Photo de mariage Momento – galerie"
             className="w-full h-full object-cover"
             style={{ minHeight: "120%" }}
           />

@@ -1,60 +1,65 @@
-import { PrismaClient, ProjectCategory, MediaType, InquiryType } from "@prisma/client";
+import { PrismaClient, ProjectCategory, MediaType } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
+// Idempotent seed: creates missing data only, never overwrites what was edited in the admin.
 const prisma = new PrismaClient();
 
+const LEGAL_MARKDOWN = `## Éditeur du site
+
+Le site Momento est édité par Momento, studio de photographie et de vidéo de mariage basé à Kinshasa (RDC) et Paris (France).
+
+- Téléphone RDC : +243 827447747
+- Téléphone France : +33 758732532
+- Instagram : @momento_rdc
+
+## Hébergement
+
+Le site est hébergé par un prestataire d'hébergement web professionnel. Ses coordonnées sont disponibles sur simple demande.
+
+## Propriété intellectuelle
+
+L'ensemble des photographies, vidéos, textes et éléments graphiques présents sur ce site sont la propriété exclusive de Momento. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.
+
+## Données personnelles
+
+Les informations transmises via le formulaire de contact (nom, email, téléphone, date et lieu de l'événement, message) sont utilisées uniquement pour répondre à votre demande et préparer votre prestation. Elles ne sont jamais revendues ni cédées à des tiers.
+
+Elles sont conservées pendant la durée nécessaire au traitement de votre demande, puis au maximum 3 ans après le dernier contact.
+
+Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous par téléphone, WhatsApp ou Instagram.
+
+## Cookies
+
+Ce site n'utilise pas de cookies publicitaires ni de traceurs tiers. Seuls des cookies techniques strictement nécessaires au fonctionnement de l'espace d'administration sont utilisés.`;
+
+const LEGACY_HERO = "https://images.unsplash.com/photo-1523438097201-512ae7d59a34";
+
 async function main() {
-  const adminEmail = "admin@momento.rdc";
-  const adminPassword = "Admin123!";
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@momento.rdc").toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD || "Admin123!";
 
-  const passwordHash = await bcrypt.hash(adminPassword, 12);
+  const existingAdmin = await prisma.adminUser.count();
+  if (existingAdmin === 0) {
+    await prisma.adminUser.create({
+      data: { email: adminEmail, passwordHash: await bcrypt.hash(adminPassword, 12) },
+    });
+    console.log(`Admin created: ${adminEmail}`);
+  }
 
-  await prisma.adminUser.upsert({
-    where: { email: adminEmail },
-    update: { passwordHash },
-    create: { email: adminEmail, passwordHash },
-  });
-
-  await prisma.siteContent.upsert({
-    where: { id: 1 },
-    update: {
-      brandPresentation:
-        "Momento est une entreprise de photographes et vidéographes passionnés, engagés à capturer les moments les plus précieux de votre journée de mariage. Nous croyons que chaque mariage est unique et nous travaillons dur pour offrir des photos et des vidéos de qualité qui reflètent cette individualité.",
-      brandPromise:
-        "Nous croyons que chaque mariage est unique et mérite d'être capturé de manière authentique et émouvante. Ce serait un grand honneur et un plaisir pour nous de faire partie de votre journée spéciale et d'immortaliser vos souvenirs les plus précieux. Contactez-nous pour discuter de la manière dont nous pouvons immortaliser l'un des plus beaux jours de votre vie.",
-      microText1: "Chaque regard raconte une histoire.",
-      microText2: "L'émotion d'un instant. La beauté pour toujours.",
-      microText3: "Des images vraies, une esthétique cinématique.",
-      microText4: "Votre journée, votre signature.",
-      microText5: "Capturer l'invisible : les frissons.",
-    },
-    create: {
-      id: 1,
-      heroTitle: "Momento RDC",
-      heroSubtitle: "Luxury & Destination Weddings",
-      heroCtaText: "Book a date",
-      heroCtaHref: "/contact",
-      heroVideoUrl: "",
-      heroImageUrl: "/hero/hero.jpg",
-      nowBookingText: "Now booking 2026–2027",
-      contactPhoneCongo: "+243 827447747",
-      contactPhoneFrance: "+33 758732532",
-      instagramHandle: "momento_rdc",
-      brandPresentation:
-        "Momento est une entreprise de photographes et vidéographes passionnés, engagés à capturer les moments les plus précieux de votre journée de mariage. Nous croyons que chaque mariage est unique et nous travaillons dur pour offrir des photos et des vidéos de qualité qui reflètent cette individualité.",
-      brandPromise:
-        "Nous croyons que chaque mariage est unique et mérite d'être capturé de manière authentique et émouvante. Ce serait un grand honneur et un plaisir pour nous de faire partie de votre journée spéciale et d'immortaliser vos souvenirs les plus précieux. Contactez-nous pour discuter de la manière dont nous pouvons immortaliser l'un des plus beaux jours de votre vie.",
-      microText1: "Chaque regard raconte une histoire.",
-      microText2: "L'émotion d'un instant. La beauté pour toujours.",
-      microText3: "Des images vraies, une esthétique cinématique.",
-      microText4: "Votre journée, votre signature.",
-      microText5: "Capturer l'invisible : les frissons.",
-      aboutMarkdown:
-        "## Momento\\n\\nLuxury wedding photography & films. Based in RDC + France. Available worldwide.\\n\\nWe craft cinematic stories with timeless elegance: light, texture, movement, emotion.",
-      legalMarkdown:
-        "## Mentions legales\\n\\nA completer.\\n\\n## Privacy\\n\\nA completer.",
-    },
-  });
+  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
+  if (!content) {
+    await prisma.siteContent.create({
+      data: { id: 1, heroImageUrl: "/hero/hero.jpg", legalMarkdown: LEGAL_MARKDOWN },
+    });
+  } else {
+    // Repair values left by older versions of the seed / schema defaults.
+    const fix = {};
+    if (!content.heroImageUrl || content.heroImageUrl.startsWith(LEGACY_HERO)) fix.heroImageUrl = "/hero/hero.jpg";
+    if (!content.legalMarkdown.trim() || /A completer|\\n/.test(content.legalMarkdown)) {
+      fix.legalMarkdown = LEGAL_MARKDOWN;
+    }
+    if (Object.keys(fix).length) await prisma.siteContent.update({ where: { id: 1 }, data: fix });
+  }
 
   const projects = [
     {
@@ -169,74 +174,21 @@ async function main() {
     },
   ];
 
-  for (const p of projects) {
-    const project = await prisma.project.upsert({
-      where: { slug: p.slug },
-      update: {
-        title: p.title,
-        category: p.category,
-        coverUrl: p.coverUrl,
-        description: p.description,
-        date: p.date,
-        location: p.location,
-        tags: p.tags,
-        featured: p.featured,
-      },
-      create: {
-        title: p.title,
-        slug: p.slug,
-        category: p.category,
-        coverUrl: p.coverUrl,
-        description: p.description,
-        date: p.date,
-        location: p.location,
-        tags: p.tags,
-        featured: p.featured,
-      },
-    });
-
-    const existing = await prisma.media.findMany({
-      where: { projectId: project.id },
-      select: { id: true, type: true, order: true },
-      orderBy: { order: "asc" },
-    });
-    if (existing.length === 0) {
-      let order = 0;
-      for (const url of p.media) {
-        await prisma.media.create({
-          data: {
-            projectId: project.id,
+  for (const { media, ...p } of projects) {
+    const exists = await prisma.project.findUnique({ where: { slug: p.slug }, select: { id: true } });
+    if (exists) continue;
+    await prisma.project.create({
+      data: {
+        ...p,
+        media: {
+          create: media.map((url, order) => ({
             type: MediaType.IMAGE,
             url,
-            alt: `${p.title} photo`,
-            order: order++,
-          },
-        });
-      }
-    }
-  }
-
-  const leadCount = await prisma.lead.count();
-  if (leadCount === 0) {
-    await prisma.lead.createMany({
-      data: [
-        {
-          name: "Sarah K.",
-          email: "sarah@example.com",
-          whatsapp: "+243 800000000",
-          location: "Goma, RDC",
-          inquiryType: InquiryType.WEDDING,
-          message: "Bonjour Momento, nous aimerions réserver une date de mariage en 2026.",
+            alt: `${p.title} – photo de mariage Momento`,
+            order,
+          })),
         },
-        {
-          name: "Marc D.",
-          email: "marc@example.com",
-          whatsapp: "+33 600000000",
-          location: "Lyon, France",
-          inquiryType: InquiryType.FILM,
-          message: "Nous cherchons un film de mariage cinématographique pour 2027. Quels sont vos forfaits ?",
-        },
-      ],
+      },
     });
   }
 
@@ -298,16 +250,11 @@ async function main() {
   ];
 
   for (const t of testimonials) {
-    await prisma.testimonial.upsert({
+    const exists = await prisma.testimonial.findUnique({
       where: { name_detail: { name: t.name, detail: t.detail } },
-      update: {
-        message: t.message,
-        rating: t.rating,
-        featured: t.featured,
-        order: t.order,
-      },
-      create: t,
+      select: { id: true },
     });
+    if (!exists) await prisma.testimonial.create({ data: t });
   }
 }
 

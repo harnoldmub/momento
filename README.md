@@ -1,100 +1,85 @@
-# Momento RDC (Website + Admin)
+# Momento (site vitrine + espace admin)
 
-Official showcase website for **Momento RDC** (Luxury & destination weddings, photography & films).
+Site officiel de **Momento** — photographe & vidéaste de mariage (Paris, France, Belgique, Kinshasa, destination weddings).
 
 ## Stack
 
-- Next.js (App Router) + TypeScript
-- TailwindCSS
-- Framer Motion
-- Theme system: `next-themes` (Light par defaut + toggle persistant)
-- Prisma
-- DB: SQLite (dev) + PostgreSQL schema provided for production
-- Gallery: `yet-another-react-lightbox` + responsive masonry (CSS columns)
+- Next.js 14 (App Router) + TypeScript
+- TailwindCSS v4 + Framer Motion
+- Prisma + PostgreSQL
+- Galerie : `yet-another-react-lightbox`
+- Emails (optionnel) : Resend
 
-## Quick Start
+## Démarrage
 
 ```bash
 npm install
-cp .env.example .env
-npx prisma db push
-npm run db:seed
+cp .env.example .env      # puis renseigner DATABASE_URL, ADMIN_SESSION_SECRET, SITE_URL
+npx prisma db push        # crée / met à jour les tables
+npm run db:seed           # données initiales (n'écrase jamais ce qui a été modifié dans l'admin)
 npm run dev
 ```
 
-Open:
+- Site public : `http://localhost:3000`
+- Admin : `http://localhost:3000/admin`
 
-- Public site: `http://localhost:3000`
-- Admin: `http://localhost:3000/admin`
+## Compte admin
 
-## Admin Login (Seed)
+Le seed crée un compte **uniquement s'il n'en existe aucun** : `ADMIN_EMAIL` / `ADMIN_PASSWORD`
+(par défaut `admin@momento.rdc` / `Admin123!`).
+**Changez le mot de passe immédiatement** dans Admin → Compte (un avertissement s'affiche tant que le mot de passe par défaut est utilisé).
 
-- Email: `admin@momento.rdc`
-- Password: `Admin123!`
+## Variables d'environnement
 
-You can change it by updating the `AdminUser` record in the DB.
+Voir `.env.example`.
 
-## Environment Variables
+| Variable | Rôle |
+| --- | --- |
+| `DATABASE_URL` | Connexion PostgreSQL (obligatoire) |
+| `ADMIN_SESSION_SECRET` | Signature des cookies de session admin (obligatoire) |
+| `SITE_URL` | URL publique du site, ex. `https://www.momento-wedding.com` (SEO : canonical, sitemap, données structurées) |
+| `GOOGLE_SITE_VERIFICATION` | Code de vérification Google Search Console (optionnel) |
+| `UPLOAD_DIR` | Dossier des fichiers importés depuis l'admin (défaut `./uploads`) |
+| `RESEND_API_KEY`, `RESEND_FROM`, `LEADS_TO_EMAIL` | Envoi d'un email à chaque demande de réservation (optionnel) |
 
-See `.env.example`.
+## Espace admin
 
-- `DATABASE_URL`
-  - Dev (SQLite): `file:./dev.db`
-  - Prod (PostgreSQL): use `prisma/schema.postgres.prisma` and a Postgres `DATABASE_URL`
-- `ADMIN_SESSION_SECRET`
-  - Used to sign admin session cookies (rotate in prod)
+- `/admin` : tableau de bord (compteurs + dernières demandes)
+- `/admin/projects` : reportages du portfolio (création, édition, suppression), import de photos / vidéos,
+  liens YouTube / Vimeo, choix de la couverture, ordre des médias
+- `/admin/leads` : demandes du formulaire de contact (statuts Nouveau / Contacté / Réservé, suppression)
+- `/admin/testimonials` : témoignages (ajout, modification, affichage sur l'accueil, suppression)
+- `/admin/site` : image/vidéo d'accueil, téléphones, Instagram, mentions légales
+- `/admin/account` : email et mot de passe de connexion
 
-### Resend (Optional)
+Toutes les modifications sont visibles immédiatement sur le site (pages rendues dynamiquement).
 
-If you set:
+## Fichiers importés
 
-- `RESEND_API_KEY`
-- `RESEND_FROM`
-- `LEADS_TO_EMAIL`
+Les fichiers importés depuis l'admin sont stockés dans `UPLOAD_DIR` (hors de `public/`, car Next.js ne sert
+que les fichiers présents dans `public/` au moment du build) et servis via `/uploads/...`.
+En production, ce dossier doit être **persistant** (volume / disque). Sur un hébergement sans disque
+persistant, utilisez plutôt des URLs externes (Cloudinary, S3…) via « Ajouter par lien ».
 
-Then booking inquiries will be emailed, in addition to being saved in the DB.
+## SEO
 
-## Media Storage
+- Titres, descriptions et mots-clés ciblés (Momento wedding, photographe mariage Paris / France / Belgique / Kinshasa…)
+- Données structurées schema.org (`LocalBusiness` / `ProfessionalService`, zones desservies, `ImageGallery` par reportage)
+- `sitemap.xml` dynamique (inclut les reportages créés dans l'admin) et `robots.txt`
+- URLs canoniques, Open Graph / Twitter, textes alternatifs des images
 
-- Dev uploads: stored locally at `public/uploads/<projectId>/...` via admin upload.
-- Production: recommended to use S3-compatible storage or Cloudinary.
-  - Current admin also supports adding remote URLs for images/videos.
+Après la mise en ligne :
+1. Définir `SITE_URL` avec le vrai domaine.
+2. Ajouter le site dans [Google Search Console](https://search.google.com/search-console), le vérifier
+   (`GOOGLE_SITE_VERIFICATION`) puis soumettre `https://<domaine>/sitemap.xml`.
+3. Créer une fiche [Google Business Profile](https://business.google.com) « Momento – Photographe de mariage »
+   (Paris) avec le lien du site : c'est le levier le plus efficace pour les recherches locales.
+4. Ajouter le lien du site dans la bio Instagram.
 
-## Prisma Notes (SQLite dev + Postgres prod)
+## Routes publiques
 
-Prisma datasource provider cannot be dynamic, so:
-
-- Dev schema: `prisma/schema.prisma` (SQLite)
-- Prod schema: `prisma/schema.postgres.prisma` (PostgreSQL)
-
-Scripts:
-
-- `npm run prisma:generate` (SQLite schema)
-- `npm run prisma:generate:postgres`
-- `npm run prisma:migrate:postgres`
-
-## Routes
-
-Public:
-
-- `/` home storytelling (hero + promesse + approche + stories + services + temoignages + closing CTA)
-- `/portfolio` filters + masonry + lightbox
-- `/portfolio/[slug]` project detail
-- `/about`
-- `/contact` booking form (DB + optional Resend)
-- `/legal`
-
-Admin:
-
-- `/admin/login`
-- `/admin` dashboard
-- `/admin/projects` CRUD + media upload/reorder
-- `/admin/leads` pipeline status (new/contacted/booked)
-- `/admin/site` edit hero/about/contacts/legal
-- `/admin/testimonials` CRUD (message, rating optionnel, featured)
-
-## Security / Node Version
-
-This repo is set up to run on **Node 18.18+** (required by Prisma v6).
-
-If you can upgrade to **Node 20+**, you can also upgrade Next.js to the latest major for the newest security patches.
+- `/` accueil
+- `/portfolio` reportages (filtres par catégorie) + toutes les photos
+- `/portfolio/mariages`, `/portfolio/save_the_date` galeries
+- `/portfolio/[slug]` page d'un reportage
+- `/about`, `/contact` (formulaire → base de données + email optionnel), `/legal`

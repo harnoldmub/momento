@@ -21,11 +21,11 @@ export default function AdminLoginPage() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
-    });
-    setLoading(false);
-    if (!res.ok) {
-      const j = await res.json().catch(() => null);
-      setError(j?.error || "Login failed");
+    }).catch(() => null);
+    if (!res || !res.ok) {
+      const j = await res?.json().catch(() => null);
+      setError(j?.error || "Connexion impossible");
+      setLoading(false);
       return;
     }
     router.push("/admin");
@@ -40,10 +40,10 @@ export default function AdminLoginPage() {
             Admin
           </div>
           <h1 className="mt-3 font-[var(--font-display)] text-3xl tracking-[0.08em] uppercase">
-            Momento Backoffice
+            Espace Momento
           </h1>
           <p className="mt-4 text-sm text-ivory/65">
-            Login to manage projects, media, and leads.
+            Connectez-vous pour gérer les projets, les médias, les demandes et les contenus du site.
           </p>
 
           <form className="mt-8 grid gap-5" onSubmit={onSubmit}>
@@ -51,20 +51,20 @@ export default function AdminLoginPage() {
               name="email"
               type="email"
               label="Email"
-              defaultValue="admin@momento.rdc"
+              autoComplete="username"
               required
             />
             <Input
               name="password"
               type="password"
-              label="Password"
-              defaultValue="Admin123!"
+              label="Mot de passe"
+              autoComplete="current-password"
               required
             />
 
             {error ? <div className="text-sm text-red-300">{error}</div> : null}
             <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Signing in..." : "Sign in"}
+              {loading ? "Connexion..." : "Se connecter"}
             </Button>
           </form>
         </div>

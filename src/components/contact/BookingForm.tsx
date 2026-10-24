@@ -12,7 +12,8 @@ export function BookingForm() {
     setStatus("sending");
     setError("");
 
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
 
     try {
@@ -26,7 +27,7 @@ export function BookingForm() {
         throw new Error(j?.error || "Échec de l'envoi");
       }
       setStatus("sent");
-      e.currentTarget.reset();
+      form.reset();
     } catch (err: any) {
       setStatus("error");
       setError(err?.message || "Une erreur est survenue");
@@ -38,20 +39,27 @@ export function BookingForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-6">
+      {/* Honeypot anti-spam : invisible pour les visiteurs */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>
+          Société
+          <input name="company" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Nom</label>
-          <input name="name" placeholder="Votre nom" required className={inputClass} />
+          <input name="name" placeholder="Votre nom" required minLength={2} maxLength={120} autoComplete="name" className={inputClass} />
         </div>
         <div>
           <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Email</label>
-          <input name="email" type="email" placeholder="votre@email.com" className={inputClass} />
+          <input name="email" type="email" placeholder="votre@email.com" autoComplete="email" className={inputClass} />
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">T&eacute;l&eacute;phone / WhatsApp</label>
-          <input name="whatsapp" placeholder="+243..." className={inputClass} />
+          <input name="whatsapp" type="tel" placeholder="+243..." autoComplete="tel" className={inputClass} />
         </div>
         <div>
           <label className="text-[10px] tracking-[0.2em] uppercase text-ivory/35 block mb-2">Date du mariage</label>
@@ -85,6 +93,8 @@ export function BookingForm() {
           name="message"
           placeholder="Parlez-nous de votre histoire..."
           required
+          minLength={5}
+          maxLength={4000}
           rows={4}
           className={`${inputClass} resize-none`}
         />

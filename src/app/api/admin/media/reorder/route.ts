@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/adminAuth";
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
       select: { id: true },
     });
     const set = new Set(existing.map((m) => m.id));
-    for (const id of orderedIds) if (!set.has(id)) return NextResponse.json({ error: "Invalid order" }, { status: 400 });
+    for (const id of orderedIds) if (!set.has(id)) return NextResponse.json({ error: "Ordre invalide" }, { status: 400 });
 
     await prisma.$transaction(
       orderedIds.map((id, idx) =>
@@ -27,12 +28,13 @@ export async function POST(req: Request) {
       ),
     );
 
+    revalidatePath("/", "layout");
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     if (e?.message === "UNAUTHORIZED") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
-    return NextResponse.json({ error: e?.message || "Bad request" }, { status: 400 });
+    return NextResponse.json({ error: e?.message || "Requête invalide" }, { status: 400 });
   }
 }
 

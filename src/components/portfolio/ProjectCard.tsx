@@ -26,15 +26,14 @@ export function ProjectCard({
           src={coverUrl}
           alt={title}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-          priority={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100" />
       </div>
-      <div className="absolute inset-x-0 bottom-0 p-6 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+      <div className="absolute inset-x-0 bottom-0 p-6 transition-all duration-500 md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
         <div className="text-[10px] tracking-[0.3em] uppercase text-white/60">
-          {CATEGORY_LABEL[category]} {location ? `\u00b7 ${location}` : ""}
+          {CATEGORY_LABEL[category]} {location ? `· ${location}` : ""}
         </div>
         <div className="mt-2 font-[var(--font-display)] text-xl tracking-[0.06em] uppercase text-white">
           {title}

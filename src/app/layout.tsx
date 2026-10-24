@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Manrope, Playfair_Display, Work_Sans, GFS_Didot } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { getSiteUrl } from "@/lib/env";
+import { SEO_KEYWORDS } from "@/lib/seo";
 
 const fontBody = Manrope({
   variable: "--font-momento-body",
@@ -30,26 +32,45 @@ const fontWorkSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Momento RDC | Luxury Wedding Photography & Films",
-    template: "%s | Momento RDC",
+    default: "Momento | Photographe & Vidéaste de Mariage à Paris, France, Belgique & Kinshasa",
+    template: "%s | Momento Wedding",
   },
   description:
-    "Luxury & destination weddings photography and films. Based in RDC + France, available worldwide. Now booking 2026–2027.",
+    "Momento, photographe et vidéaste de mariage haut de gamme à Paris et Kinshasa. Reportages photo, films de mariage cinématographiques et destination weddings en France, en Belgique, en RDC et partout dans le monde.",
+  applicationName: "Momento",
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: "Momento" }],
+  creator: "Momento",
+  publisher: "Momento",
+  category: "Wedding photography",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    title: "Momento RDC",
+    locale: "fr_FR",
+    url: "/",
+    siteName: "Momento Wedding",
+    title: "Momento | Photographe & Vidéaste de Mariage – Paris, France, Belgique",
     description:
-      "Luxury & destination weddings photography and films. Based in RDC + France, available worldwide.",
-    siteName: "Momento RDC",
+      "Photographie et films de mariage d'exception. Basés à Paris et Kinshasa, disponibles en France, en Belgique et dans le monde entier.",
+    images: [{ url: "/hero/hero.jpg", width: 1919, height: 1084, alt: "Momento – photographe de mariage" }],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Momento | Photographe & Vidéaste de Mariage",
+    description: "Photographie et films de mariage d'exception à Paris, en France, en Belgique et à Kinshasa.",
+    images: ["/hero/hero.jpg"],
   },
-  icons: {
-    icon: "/favicon.ico",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({

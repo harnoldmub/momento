@@ -21,7 +21,7 @@ export function ApproachSection() {
             >
                 <img
                     src="/contact/contact-h.jpg"
-                    alt="Cinematic approach"
+                    alt="Film de mariage cinématographique Momento"
                     className="w-full h-[140%] object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40" />

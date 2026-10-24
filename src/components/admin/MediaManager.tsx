@@ -1,241 +1,268 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import type { Media } from "@prisma/client";
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+
+async function call(url: string, init: RequestInit) {
+  const res = await fetch(url, init).catch(() => null);
+  const j = await res?.json().catch(() => null);
+  if (!res || !res.ok) throw new Error(j?.error || "L'opération a échoué");
+  return j;
+}
 
 export function MediaManager({
   projectId,
   initialMedia,
+  initialCoverUrl,
 }: {
   projectId: string;
   initialMedia: Media[];
+  initialCoverUrl: string;
 }) {
+  const router = useRouter();
   const [media, setMedia] = useState<Media[]>(
     initialMedia.slice().sort((a, b) => a.order - b.order),
   );
+  const [coverUrl, setCoverUrl] = useState(initialCoverUrl);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  const [orderDirty, setOrderDirty] = useState(false);
   const [dragId, setDragId] = useState<string | null>(null);
 
-  const orderedIds = useMemo(() => media.map((m) => m.id), [media]);
-
-  async function upload(files: FileList | null) {
-    if (!files || files.length === 0) return;
+  async function run(fn: () => Promise<void>, success?: string) {
     setBusy(true);
     setError("");
+    setInfo("");
     try {
+      await fn();
+      if (success) setInfo(success);
+      router.refresh();
+    } catch (e: any) {
+      setError(e?.message || "L'opération a échoué");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function upload(input: HTMLInputElement) {
+    const files = input.files;
+    if (!files || files.length === 0) return;
+    void run(async () => {
       const fd = new FormData();
       for (const f of Array.from(files)) fd.append("files", f);
-      const res = await fetch(`/api/admin/projects/${projectId}/media/upload`, {
-        method: "POST",
-        body: fd,
-      });
-      const j = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(j?.error || "Upload failed");
-      setMedia((m) =>
-        [...m, ...(j.created as Media[])].slice().sort((a, b) => a.order - b.order),
-      );
-    } catch (e: any) {
-      setError(e?.message || "Upload failed");
-    } finally {
-      setBusy(false);
-    }
+      const j = await call(`/api/admin/projects/${projectId}/media/upload`, { method: "POST", body: fd });
+      setMedia((m) => [...m, ...(j.created as Media[])]);
+      if (j.coverUrl) setCoverUrl(j.coverUrl);
+      input.value = "";
+    }, `${files.length} fichier(s) importé(s).`);
   }
 
-  async function addUrl(form: HTMLFormElement) {
-    setBusy(true);
-    setError("");
-    try {
-      const fd = new FormData(form);
-      const payload = {
-        type: String(fd.get("type") || "IMAGE"),
-        url: String(fd.get("url") || ""),
-        alt: String(fd.get("alt") || ""),
-      };
-      const res = await fetch(`/api/admin/projects/${projectId}/media/add-url`, {
+  function addUrl(form: HTMLFormElement) {
+    const fd = new FormData(form);
+    void run(async () => {
+      const j = await call(`/api/admin/projects/${projectId}/media/add-url`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          type: String(fd.get("type") || "IMAGE"),
+          url: String(fd.get("url") || ""),
+          alt: String(fd.get("alt") || ""),
+        }),
       });
-      const j = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(j?.error || "Failed");
-      setMedia((m) => [...m, j.created as Media].slice().sort((a, b) => a.order - b.order));
+      setMedia((m) => [...m, j.created as Media]);
+      if (j.coverUrl) setCoverUrl(j.coverUrl);
       form.reset();
-    } catch (e: any) {
-      setError(e?.message || "Failed");
-    } finally {
-      setBusy(false);
-    }
+    }, "Média ajouté.");
   }
 
-  async function saveOrder() {
-    setBusy(true);
-    setError("");
-    try {
-      const res = await fetch("/api/admin/media/reorder", {
+  function saveOrder() {
+    void run(async () => {
+      await call("/api/admin/media/reorder", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ projectId, orderedIds }),
+        body: JSON.stringify({ projectId, orderedIds: media.map((m) => m.id) }),
       });
-      const j = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(j?.error || "Failed");
-    } catch (e: any) {
-      setError(e?.message || "Failed");
-    } finally {
-      setBusy(false);
-    }
+      setOrderDirty(false);
+    }, "Ordre enregistré.");
   }
 
-  async function remove(id: string) {
-    setBusy(true);
-    setError("");
-    try {
-      const res = await fetch(`/api/admin/media/${id}`, { method: "DELETE" });
-      const j = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(j?.error || "Delete failed");
-      setMedia((m) => m.filter((x) => x.id !== id));
-    } catch (e: any) {
-      setError(e?.message || "Delete failed");
-    } finally {
-      setBusy(false);
-    }
+  function remove(m: Media) {
+    if (!window.confirm("Supprimer ce média ?")) return;
+    void run(async () => {
+      await call(`/api/admin/media/${m.id}`, { method: "DELETE" });
+      setMedia((list) => list.filter((x) => x.id !== m.id));
+    }, "Média supprimé.");
+  }
+
+  function setCover(m: Media) {
+    void run(async () => {
+      await call(`/api/admin/projects/${projectId}/cover`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ url: m.url }),
+      });
+      setCoverUrl(m.url);
+    }, "Couverture mise à jour.");
+  }
+
+  function move(from: number, to: number) {
+    if (to < 0 || to >= media.length || from === to) return;
+    setMedia((prev) => {
+      const copy = prev.slice();
+      const [item] = copy.splice(from, 1);
+      copy.splice(to, 0, item);
+      return copy;
+    });
+    setOrderDirty(true);
   }
 
   return (
     <div className="grid gap-6">
-      <div className="rounded-2xl border border-line bg-white/3 p-6">
+      <div className="rounded-3xl border border-line bg-white/3 p-6 md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="text-xs tracking-[0.28em] uppercase text-ivory/55">
-              Media
+              Médias ({media.length})
             </div>
-            <div className="mt-2 text-sm text-ivory/70">
-              Upload images or add a video link (Vimeo/YouTube). Drag items to reorder,
-              then click Save order.
+            <div className="mt-2 max-w-xl text-sm text-ivory/70">
+              Importez des photos (JPG, PNG, WebP…) ou des vidéos (MP4, WebM), ou ajoutez un lien
+              YouTube / Vimeo. Glissez-déposez ou utilisez les flèches pour réordonner, puis cliquez sur
+              « Enregistrer l&apos;ordre ».
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <label className={cn("cursor-pointer", busy ? "opacity-60 pointer-events-none" : "")}>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className={cn("cursor-pointer", busy ? "pointer-events-none opacity-60" : "")}>
               <input
                 type="file"
                 className="hidden"
                 multiple
-                accept="image/*"
-                onChange={(e) => upload(e.target.files)}
+                accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm,video/quicktime"
+                onChange={(e) => upload(e.currentTarget)}
               />
-              <span className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-xs tracking-[0.22em] uppercase text-ivory/80 hover:bg-white/5">
-                Upload
+              <span className="inline-flex items-center justify-center bg-ivory px-7 py-3 text-[11px] tracking-[0.25em] uppercase text-charcoal hover:opacity-85">
+                {busy ? "Patientez..." : "Importer des fichiers"}
               </span>
             </label>
-            <Button variant="outline" disabled={busy || media.length < 2} onClick={saveOrder}>
-              Save order
+            <Button variant="outline" disabled={busy || !orderDirty} onClick={saveOrder}>
+              Enregistrer l&apos;ordre
             </Button>
           </div>
         </div>
 
-        {error ? <div className="mt-4 text-sm text-red-300">{error}</div> : null}
+        {error ? <div className="mt-4 text-sm text-red-600 dark:text-red-300">{error}</div> : null}
+        {info ? <div className="mt-4 text-sm text-emerald-700 dark:text-emerald-300">{info}</div> : null}
 
         <form
-          className="mt-6 grid gap-3 rounded-2xl border border-line bg-black/20 p-5 md:grid-cols-6"
+          className="mt-6 grid gap-3 rounded-2xl border border-line bg-black/[0.03] p-5 md:grid-cols-6"
           onSubmit={(e) => {
             e.preventDefault();
-            void addUrl(e.currentTarget);
+            addUrl(e.currentTarget);
           }}
         >
-          <div className="md:col-span-1">
-            <select
-              name="type"
-              className="h-11 w-full rounded-xl border border-line bg-white/5 px-3 text-sm text-ivory outline-none"
-              defaultValue="VIDEO"
-            >
-              <option value="VIDEO">Video</option>
-              <option value="IMAGE">Image</option>
-            </select>
-          </div>
-          <div className="md:col-span-3">
-            <input
-              name="url"
-              placeholder="https://vimeo.com/... or https://images..."
-              className="h-11 w-full rounded-xl border border-line bg-white/5 px-4 text-sm text-ivory outline-none"
-              required
-            />
-          </div>
-          <div className="md:col-span-2">
-            <input
-              name="alt"
-              placeholder="Alt text (optional)"
-              className="h-11 w-full rounded-xl border border-line bg-white/5 px-4 text-sm text-ivory outline-none"
-            />
-          </div>
-          <div className="md:col-span-6 flex justify-end">
-            <Button type="submit" disabled={busy}>
-              Add
+          <select
+            name="type"
+            className="h-11 w-full rounded-xl border border-line bg-white/5 px-3 text-sm text-ivory outline-none md:col-span-1"
+            defaultValue="VIDEO"
+          >
+            <option value="VIDEO">Vidéo</option>
+            <option value="IMAGE">Image</option>
+          </select>
+          <input
+            name="url"
+            placeholder="https://youtube.com/… ou https://vimeo.com/… ou URL d'image"
+            className="h-11 w-full rounded-xl border border-line bg-white/5 px-4 text-sm text-ivory outline-none md:col-span-3"
+            required
+          />
+          <input
+            name="alt"
+            placeholder="Description (optionnelle)"
+            className="h-11 w-full rounded-xl border border-line bg-white/5 px-4 text-sm text-ivory outline-none md:col-span-2"
+          />
+          <div className="flex justify-end md:col-span-6">
+            <Button type="submit" variant="outline" disabled={busy}>
+              Ajouter par lien
             </Button>
           </div>
         </form>
       </div>
 
-      <div className="grid gap-4">
-        {media.map((m) => (
-          <div
-            key={m.id}
-            draggable
-            onDragStart={() => setDragId(m.id)}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => {
-              if (!dragId || dragId === m.id) return;
-              setMedia((prev) => {
-                const copy = prev.slice();
-                const from = copy.findIndex((x) => x.id === dragId);
-                const to = copy.findIndex((x) => x.id === m.id);
-                if (from === -1 || to === -1) return prev;
-                const [item] = copy.splice(from, 1);
-                copy.splice(to, 0, item);
-                // keep local order values in sync for UI
-                return copy.map((x, idx) => ({ ...x, order: idx }));
-              });
-              setDragId(null);
-            }}
-            className="grid grid-cols-12 items-center gap-4 rounded-2xl border border-line bg-white/3 p-4"
-          >
-            <div className="col-span-3 overflow-hidden rounded-xl border border-line bg-black/20">
-              {m.type === "IMAGE" ? (
-                <Image
-                  src={m.url}
-                  alt={m.alt || "Media"}
-                  width={480}
-                  height={320}
-                  className="h-20 w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-20 items-center justify-center text-xs tracking-[0.22em] uppercase text-ivory/60">
-                  Video
-                </div>
+      <div className="grid gap-3">
+        {media.map((m, idx) => {
+          const isCover = coverUrl === m.url;
+          return (
+            <div
+              key={m.id}
+              draggable
+              onDragStart={() => setDragId(m.id)}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={() => {
+                if (dragId) move(media.findIndex((x) => x.id === dragId), idx);
+                setDragId(null);
+              }}
+              className={cn(
+                "grid grid-cols-12 items-center gap-4 rounded-2xl border bg-white/3 p-3 md:p-4",
+                isCover ? "border-ivory/40" : "border-line",
+                dragId === m.id ? "opacity-50" : "",
               )}
-            </div>
-            <div className="col-span-7">
-              <div className="text-xs tracking-[0.22em] uppercase text-ivory/55">
-                {m.type}
+            >
+              <div className="col-span-4 overflow-hidden rounded-xl border border-line bg-black/20 md:col-span-2">
+                {m.type === "IMAGE" ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={m.url} alt={m.alt || "Média"} className="h-20 w-full object-cover" loading="lazy" />
+                ) : (
+                  <div className="flex h-20 items-center justify-center text-xs tracking-[0.22em] uppercase text-ivory/60">
+                    ▶ Vidéo
+                  </div>
+                )}
               </div>
-              <div className="mt-1 truncate text-sm text-ivory/80">{m.url}</div>
+              <div className="col-span-8 min-w-0 md:col-span-5">
+                <div className="text-xs tracking-[0.22em] uppercase text-ivory/55">
+                  #{idx + 1} · {m.type === "IMAGE" ? "Photo" : "Vidéo"}
+                  {isCover ? " · Couverture" : ""}
+                </div>
+                <div className="mt-1 truncate text-sm text-ivory/80">{m.url}</div>
+              </div>
+              <div className="col-span-12 flex flex-wrap items-center justify-end gap-2 md:col-span-5">
+                <button
+                  type="button"
+                  aria-label="Monter"
+                  disabled={busy || idx === 0}
+                  onClick={() => move(idx, idx - 1)}
+                  className="h-9 w-9 rounded-full border border-line text-ivory/70 hover:bg-white/5 disabled:opacity-30"
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  aria-label="Descendre"
+                  disabled={busy || idx === media.length - 1}
+                  onClick={() => move(idx, idx + 1)}
+                  className="h-9 w-9 rounded-full border border-line text-ivory/70 hover:bg-white/5 disabled:opacity-30"
+                >
+                  ↓
+                </button>
+                {m.type === "IMAGE" && !isCover ? (
+                  <Button variant="ghost" disabled={busy} onClick={() => setCover(m)}>
+                    Couverture
+                  </Button>
+                ) : null}
+                <Button variant="ghost" disabled={busy} onClick={() => remove(m)} className="text-red-600 dark:text-red-300">
+                  Supprimer
+                </Button>
+              </div>
             </div>
-            <div className="col-span-2 flex justify-end">
-              <Button variant="ghost" disabled={busy} onClick={() => remove(m.id)}>
-                Remove
-              </Button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
         {media.length === 0 ? (
           <div className="rounded-2xl border border-line bg-white/3 p-8 text-sm text-ivory/65">
-            No media yet.
+            Aucun média pour le moment.
           </div>
         ) : null}
       </div>
     </div>
   );
 }
-

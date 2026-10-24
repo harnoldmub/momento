@@ -19,7 +19,7 @@ export function IntroSection() {
             BASÉS À KINSHASA, CONGO & PARIS, FRANCE
           </p>
           <p className="text-[14px] md:text-[16px] tracking-[0.2em] uppercase font-light">
-            À VOTRE SERVICE PARTOUT DANS LE MONDE
+            EN FRANCE, EN BELGIQUE & PARTOUT DANS LE MONDE
           </p>
         </motion.div>
 
@@ -45,8 +45,9 @@ export function IntroSection() {
             </div>
             <div className="flex-1 text-[15px] leading-relaxed font-light opacity-80">
               <p>
-                Spécialisés en photographie de mariage haut de gamme et en film cinématographique,
-                nous capturons l&apos;élégance de vos émotions à travers le monde.
+                Photographes et vidéastes de mariage spécialisés dans le reportage haut de gamme et le film
+                cinématographique, nous capturons l&apos;élégance de vos émotions à Paris, partout en France,
+                en Belgique, à Kinshasa et à travers le monde.
                 Du désert de Dubaï aux rives d&apos;Europe, chaque instant devient une œuvre intemporelle.
               </p>
             </div>
@@ -116,7 +117,7 @@ export function IntroSection() {
             <div className="aspect-[3/4] overflow-hidden">
               <img
                 src="/home/home-8.jpg"
-                alt="Momento Photographer"
+                alt="Dave, photographe de mariage Momento"
                 className="w-full h-full object-cover"
               />
             </div>

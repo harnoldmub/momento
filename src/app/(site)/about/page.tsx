@@ -3,8 +3,10 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "\u00c0 propos",
-  description: "Notre Histoire \u2013 L\u2019Art de Raconter le V\u00f4tre. Photographe & vid\u00e9aste de mariage international.",
+  title: "À propos – Photographe & Vidéaste de Mariage International",
+  description:
+    "Découvrez Momento : photographe et vidéaste de mariage basé à Paris et Kinshasa, disponible en France, en Belgique et partout dans le monde. Storytelling cinématographique et photographie intemporelle.",
+  alternates: { canonical: "/about" },
 };
 
 export default async function AboutPage() {
@@ -13,7 +15,7 @@ export default async function AboutPage() {
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <img
           src="/about/about-h.jpg"
-          alt="Momento RDC"
+          alt="Momento, photographe et vidéaste de mariage"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/45" />
@@ -90,7 +92,7 @@ export default async function AboutPage() {
                 <div className="overflow-hidden">
                   <img
                     src="/about/about-2.jpg"
-                    alt="Momento – À propos"
+                    alt="Couple de mariés – l’équipe Momento"
                     className="w-full object-cover"
                   />
                 </div>
@@ -118,7 +120,8 @@ export default async function AboutPage() {
               </h2>
               <p className="text-sm text-ivory/50 leading-relaxed mb-8">
                 Nous voyageons l&agrave; o&ugrave; votre histoire nous appelle.
-                Du d&eacute;sert de Duba&iuml; aux c&eacute;l&eacute;brations &eacute;l&eacute;gantes en Europe,
+                De Paris &agrave; Bruxelles, de Kinshasa au d&eacute;sert de Duba&iuml;, en passant par les
+                plus belles c&eacute;l&eacute;brations en France, en Belgique et partout en Europe,
                 nous cr&eacute;ons des souvenirs intemporels.
               </p>
               <Button href="/contact">

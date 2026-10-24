@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/db";
+import { getSiteContent } from "@/lib/siteContent";
 import { SimpleMarkdown } from "@/components/content/SimpleMarkdown";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
-  title: "Mentions l\u00e9gales",
-  description: "Mentions l\u00e9gales et politique de confidentialit\u00e9.",
+  title: "Mentions légales",
+  description: "Mentions légales et politique de confidentialité du site Momento.",
+  alternates: { canonical: "/legal" },
 };
 
 export default async function LegalPage() {
-  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
+  const content = await getSiteContent();
   return (
     <div className="pt-28 pb-20">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16">

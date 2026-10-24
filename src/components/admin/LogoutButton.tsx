@@ -14,7 +14,7 @@ export function LogoutButton() {
         router.refresh();
       }}
     >
-      Logout
+      Déconnexion
     </Button>
   );
 }

@@ -55,7 +55,7 @@ export function Header() {
             >
               <Link
                 className="text-ivory/70 hover:text-ivory transition-colors duration-300 flex items-center gap-1"
-                href="#"
+                href="/portfolio"
                 style={navLinkStyle}
               >
                 Portfolio
@@ -69,6 +69,14 @@ export function Header() {
                 )}
               >
                 <div className="bg-charcoal border border-line py-4 px-6 space-y-4">
+                  <Link
+                    href="/portfolio"
+                    className="block text-[10px] tracking-[0.2em] text-ivory/60 hover:text-ivory transition-colors"
+                    style={navLinkStyle}
+                    onClick={() => setPortfolioOpen(false)}
+                  >
+                    Nos histoires
+                  </Link>
                   <Link
                     href="/portfolio/mariages"
                     className="block text-[10px] tracking-[0.2em] text-ivory/60 hover:text-ivory transition-colors"
@@ -119,6 +127,7 @@ export function Header() {
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
+            aria-expanded={menuOpen}
           >
             <span className={cn("block h-[1.5px] w-6 bg-ivory transition-all duration-300", menuOpen && "rotate-45 translate-y-[4.5px]")} />
             <span className={cn("block h-[1.5px] w-6 bg-ivory transition-all duration-300", menuOpen && "opacity-0")} />
@@ -142,6 +151,14 @@ export function Header() {
             >
               Portfolio
             </span>
+            <Link
+              href="/portfolio"
+              onClick={() => setMenuOpen(false)}
+              className="text-xl tracking-[0.2em] uppercase text-ivory"
+              style={navLinkStyle}
+            >
+              Nos histoires
+            </Link>
             <Link
               href="/portfolio/mariages"
               onClick={() => setMenuOpen(false)}

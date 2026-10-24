@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { prisma } from "@/lib/db";
+import { getSiteContent } from "@/lib/siteContent";
 
 export async function Footer() {
-  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
+  const content = await getSiteContent();
   const phoneCd = content?.contactPhoneCongo || "+243 827447747";
   const phoneFr = content?.contactPhoneFrance || "+33 758732532";
   const ig = content?.instagramHandle || "momento_rdc";
@@ -22,7 +22,7 @@ export async function Footer() {
               cinématographiques et des captures d&apos;exception pour immortaliser votre héritage.
             </p>
             <p className="mt-3 text-xs text-ivory/40">
-              Basés entre Paris et Kinshasa &middot; Disponibles partout dans le monde.
+              Basés entre Paris et Kinshasa &middot; France, Belgique & partout dans le monde.
             </p>
           </div>
 
@@ -34,7 +34,7 @@ export async function Footer() {
               <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/">
                 Accueil
               </Link>
-              <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/portfolio/mariages">
+              <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/portfolio">
                 Portfolio
               </Link>
               <Link className="text-ivory/60 hover:text-ivory transition-colors duration-300" href="/about">
@@ -79,8 +79,11 @@ export async function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-line flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="text-xs text-ivory/30">
-            &copy; {new Date().getFullYear()} Momento. Tous droits r&eacute;serv&eacute;s.
+          <div className="flex flex-wrap items-center gap-4 text-xs text-ivory/30">
+            <span>&copy; {new Date().getFullYear()} Momento. Tous droits r&eacute;serv&eacute;s.</span>
+            <Link className="hover:text-ivory transition-colors duration-300" href="/legal">
+              Mentions l&eacute;gales
+            </Link>
           </div>
           <div className="text-[10px] tracking-[0.3em] uppercase text-ivory/25">
             Photographe mariage international &middot; Vid&eacute;aste mariage &middot; Film de mariage cin&eacute;matographique

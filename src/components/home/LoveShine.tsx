@@ -44,7 +44,7 @@ export function LoveShine() {
           <div className="w-full max-w-md">
             <img
               src="/home/home-2.jpg"
-              alt="Portrait élégant"
+              alt="Portrait élégant de mariée – Momento"
               className="w-full object-cover"
             />
           </div>

@@ -7,12 +7,18 @@ import { motion } from "framer-motion";
 
 const BATCH_SIZE = 30;
 
-export function FullscreenGallery({ photos }: { photos: string[] }) {
+export function FullscreenGallery({
+  photos,
+  altPrefix = "Photo de mariage Momento",
+}: {
+  photos: string[];
+  altPrefix?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
 
-  const slides = photos.map((src) => ({ src, alt: "Momento portfolio" }));
+  const slides = photos.map((src, i) => ({ src, alt: `${altPrefix} ${i + 1}` }));
   const visiblePhotos = photos.slice(0, visibleCount);
   const hasMore = visibleCount < photos.length;
 
@@ -34,7 +40,7 @@ export function FullscreenGallery({ photos }: { photos: string[] }) {
           >
             <img
               src={src}
-              alt="Momento portfolio"
+              alt={`${altPrefix} ${i + 1}`}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               loading={i < 6 ? "eager" : "lazy"}
             />

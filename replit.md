@@ -33,11 +33,16 @@ public/
 - `ADMIN_SESSION_SECRET` — Used to sign admin session cookies
 - `RESEND_API_KEY` — (Optional) For email notifications via Resend
 - `RESEND_FROM` — (Optional) Sender email address
+- `LEADS_TO_EMAIL` — (Optional) Recipient of booking request emails
+- `SITE_URL` — Public URL of the site (SEO: canonical, sitemap)
+- `UPLOAD_DIR` — (Optional) Persistent folder for admin uploads (default `./uploads`)
+
+Production deployments need their own `DATABASE_URL` secret: the development database host is not
+reachable from a deployment.
 
 ## Admin Access
 - URL: `/admin`
-- Email: `admin@momento.rdc`
-- Password: `Admin123!`
+- Initial account created by `npm run db:seed` (see README). Change the password in Admin → Compte.
 
 ## Development
 - Dev server runs on port 5000 via `npx next dev -p 5000 -H 0.0.0.0`

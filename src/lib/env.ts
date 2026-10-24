@@ -4,7 +4,9 @@ export function getRequiredEnv(name: string): string {
   return v;
 }
 
+/** Public URL of the site (canonical links, sitemap, structured data). Read at runtime. */
 export function getSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const url = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  return url.replace(/\/+$/, "");
 }
 

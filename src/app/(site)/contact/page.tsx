@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/db";
+import { getSiteContent } from "@/lib/siteContent";
 import { Reveal } from "@/components/motion/Reveal";
 import { BookingForm } from "@/components/contact/BookingForm";
 
 export const metadata: Metadata = {
-  title: "Contact / Booking",
-  description: "Parlons de Votre Mariage. Photographe & vid\u00e9aste de mariage, disponible dans le monde entier.",
+  title: "Contact & Réservation – Photographe de Mariage",
+  description:
+    "Réservez Momento pour votre mariage à Paris, en France, en Belgique, à Kinshasa ou en destination wedding. Demandez vos disponibilités et un devis photo & film.",
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {
-  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
+  const content = await getSiteContent();
   const phoneCd = content?.contactPhoneCongo || "+243 827447747";
   const phoneFr = content?.contactPhoneFrance || "+33 758732532";
   const ig = content?.instagramHandle || "momento_rdc";
@@ -19,7 +21,7 @@ export default async function ContactPage() {
       <section className="relative h-[45vh] md:h-[55vh] overflow-hidden">
         <img
           src="/contact/contact-h.jpg"
-          alt="Contact Momento"
+          alt="Contactez Momento, photographe de mariage"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/50" />
@@ -94,7 +96,7 @@ export default async function ContactPage() {
                   </div>
 
                   <div className="mt-6 pt-6 border-t border-line text-xs text-ivory/35 space-y-1">
-                    <p>Basés entre Paris et Kinshasa &middot; Disponibles partout dans le monde.</p>
+                    <p>Basés entre Paris et Kinshasa &middot; En France, en Belgique et partout dans le monde.</p>
                     <p>Nous voyageons là où votre héritage nous appelle.</p>
                   </div>
                 </div>

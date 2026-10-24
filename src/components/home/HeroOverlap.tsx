@@ -16,14 +16,14 @@ export function HeroOverlap() {
             <div className="relative z-10 w-[65%]">
               <img
                 src="/home/home-15.jpg"
-                alt="Mariée élégante"
+                alt="Mariée élégante – photographe de mariage Momento"
                 className="w-full object-cover shadow-2xl"
               />
             </div>
             <div className="absolute top-[15%] left-[35%] z-20 w-[65%]">
               <img
                 src="/home/home-9.jpg"
-                alt="Couple au coucher du soleil"
+                alt="Couple de mariés au coucher du soleil – Momento"
                 className="w-full object-cover shadow-2xl"
               />
             </div>

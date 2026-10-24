@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
+import { getSiteContent, heroImageOf } from "@/lib/siteContent";
 import { CinematicHero } from "@/components/home/CinematicHero";
 import { IntroSection } from "@/components/home/IntroSection";
 import { ApproachSection } from "@/components/home/ApproachSection";
@@ -8,8 +10,12 @@ import { TestimonialCarousel } from "@/components/home/TestimonialCarousel";
 import { GalleryPreview } from "@/components/home/GalleryPreview";
 import { ReadySection } from "@/components/home/ReadySection";
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default async function HomePage() {
-  const content = await prisma.siteContent.findUnique({ where: { id: 1 } });
+  const content = await getSiteContent();
   const testimonials = await prisma.testimonial.findMany({
     where: { featured: true },
     orderBy: [{ order: "asc" }, { createdAt: "desc" }],
@@ -18,6 +24,9 @@ export default async function HomePage() {
 
   return (
     <div>
+      <h1 className="sr-only">
+        Momento – Photographe et vidéaste de mariage à Paris, en France, en Belgique et à Kinshasa
+      </h1>
       <CinematicHero
         title=""
         subtitle="Photographe & Vidéaste de Mariage – Destination Wedding & Films d’Exception"
@@ -25,7 +34,7 @@ export default async function HomePage() {
         ctaHref="/portfolio/mariages"
         nowBookingText={content?.nowBookingText || "Now booking 2026–2027"}
         videoUrl={content?.heroVideoUrl || null}
-        imageUrl="/hero/hero.jpg"
+        imageUrl={heroImageOf(content?.heroImageUrl)}
       />
 
       <IntroSection />

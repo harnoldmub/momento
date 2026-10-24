@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
+import { coverOf } from "@/lib/siteContent";
+import { getSiteUrl } from "@/lib/env";
+import { jsonLdString } from "@/lib/seo";
 import { CATEGORY_LABEL } from "@/components/portfolio/category";
 import { ProjectGallery } from "@/components/portfolio/ProjectGallery";
 import { Reveal } from "@/components/motion/Reveal";
@@ -13,14 +16,20 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const { slug } = params;
-  const project = await prisma.project.findUnique({ where: { slug } });
-  if (!project) return { title: "Project" };
+  const project = await prisma.project.findUnique({
+    where: { slug },
+    include: { media: { orderBy: { order: "asc" } } },
+  });
+  if (!project) return { title: "Projet introuvable" };
+  const place = project.location ? ` à ${project.location}` : "";
   return {
-    title: project.title,
-    description: project.description || `Project by Momento. ${project.location}`,
+    title: `${project.title} – ${CATEGORY_LABEL[project.category]}${place}`,
+    alternates: { canonical: `/portfolio/${project.slug}` },
+    description: project.description || `Reportage Momento${project.location ? ` \u00b7 ${project.location}` : ""}`,
     openGraph: {
-      title: project.title,
-      images: [{ url: project.coverUrl }],
+      type: "article",
+      title: `${project.title} – Momento`,
+      images: [{ url: coverOf(project) }],
     },
   };
 }
@@ -37,15 +46,32 @@ export default async function ProjectPage({
   });
   if (!project) return notFound();
 
+  const base = getSiteUrl();
+  const abs = (u: string) => (u.startsWith("http") ? u : `${base}${u}`);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: project.title,
+    description: project.description || undefined,
+    url: `${base}/portfolio/${project.slug}`,
+    image: project.media.filter((m) => m.type === "IMAGE").slice(0, 20).map((m) => abs(m.url)),
+    contentLocation: project.location ? { "@type": "Place", name: project.location } : undefined,
+    dateCreated: project.date?.toISOString().slice(0, 10),
+    author: { "@id": `${base}/#business` },
+    keywords: project.tags || undefined,
+  };
+
   return (
     <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <Image
-          src={project.coverUrl}
+          src={coverOf(project)}
           alt={project.title}
           fill
           className="object-cover"
           priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40" />
 
@@ -54,7 +80,7 @@ export default async function ProjectPage({
             <div className="text-[11px] tracking-[0.35em] uppercase text-white/50 mb-3">
               {CATEGORY_LABEL[project.category]}
               {project.location ? ` \u00b7 ${project.location}` : ""}
-              {project.date ? ` \u00b7 ${project.date.toISOString().slice(0, 10)}` : ""}
+              {project.date ? ` \u00b7 ${project.date.toLocaleDateString("fr-FR", { month: "long", year: "numeric", timeZone: "UTC" })}` : ""}
             </div>
             <h1 className="font-[var(--font-display)] text-4xl md:text-5xl lg:text-6xl tracking-[0.04em] uppercase text-white">
               {project.title}
@@ -88,7 +114,7 @@ export default async function ProjectPage({
               </div>
               <div className="flex gap-4">
                 <Button href="/contact">Parlons de votre mariage</Button>
-                <Button href="/portfolio/mariages" variant="outline">
+                <Button href="/portfolio" variant="outline">
                   Retour au portfolio
                 </Button>
               </div>
